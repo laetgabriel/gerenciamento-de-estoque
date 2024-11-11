@@ -4,5 +4,8 @@ module org.acgproject.gerencimentodeestoque {
 
 
     opens org.acgproject.gerencimentodeestoque to javafx.fxml;
-    exports org.acgproject.gerencimentodeestoque;
+    exports org.acgproject.gerencimentodeestoque.view;
+    opens org.acgproject.gerencimentodeestoque.view to javafx.fxml;
+    exports org.acgproject.gerencimentodeestoque.view.controller;
+    opens org.acgproject.gerencimentodeestoque.view.controller to javafx.fxml;
 }
