@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.acgprojeto.view.controller.PedidoController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
     <content>
         <AnchorPane prefHeight="582.0" prefWidth="884.0">
             <children>
@@ -20,8 +20,8 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="Cadastro">
                             <items>
-                                <MenuItem fx:id="menuItemPedido" mnemonicParsing="false" onAction="#onMenuItemPedido" text="Movimentação Estoque" />
-                                <MenuItem fx:id="menuItemProduto" mnemonicParsing="false" onAction="#onMenuItemProduto" text="Produto" />
+                                <MenuItem mnemonicParsing="false" text="Movimentação Estoque" />
+                                <MenuItem mnemonicParsing="false" text="Produto" />
                         <MenuItem mnemonicParsing="false" text="Categoria" />
                             </items>
                         </Menu>
@@ -34,39 +34,39 @@
                     </font>
                 </Label>
 
-                            <Button fx:id="btnNovo" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="113.0" mnemonicParsing="false" onAction="#onBtnNovo" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: green;" text="Novo" textFill="WHITE" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="113.0">
+                            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="113.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: green;" text="Novo" textFill="WHITE" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="113.0">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Button>
-            <Label layoutX="7.0" layoutY="161.0" text="Filtro por nome:">
+            <Label layoutX="7.0" layoutY="161.0" text="Filtro por nome:" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="161.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Button fx:id="btnNovo1" alignment="CENTER" contentDisplay="CENTER" layoutX="142.0" layoutY="113.0" mnemonicParsing="false" onAction="#onBtnNovo" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: green;" text="Atualizar" textFill="WHITE">
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="142.0" layoutY="113.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: green;" text="Atualizar" textFill="WHITE" AnchorPane.topAnchor="113.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btnNovo2" alignment="CENTER" contentDisplay="CENTER" layoutX="275.0" layoutY="113.0" mnemonicParsing="false" onAction="#onBtnNovo" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: #FF4500;" text="Excluir" textFill="WHITE">
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="275.0" layoutY="113.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: #FF4500;" text="Excluir" textFill="WHITE" AnchorPane.topAnchor="113.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btnNovo3" alignment="CENTER" contentDisplay="CENTER" layoutX="724.0" layoutY="113.0" mnemonicParsing="false" onAction="#onBtnNovo" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: green;" text="Gerar Relatório" textFill="WHITE">
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="409.0" layoutY="113.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: green;" text="Gerar Relatório" textFill="WHITE" AnchorPane.leftAnchor="409.0" AnchorPane.topAnchor="113.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <TextField layoutX="124.0" layoutY="159.0" prefHeight="26.0" prefWidth="172.0" text="Digite o nome do fornecedor" />
+            <TextField layoutX="124.0" layoutY="159.0" prefHeight="26.0" prefWidth="172.0" promptText="Digite o nome do fornecedor" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="159.0" />
 
-                            <TableView fx:id="tableViewPedido" layoutY="190.0" prefHeight="392.0" prefWidth="884.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="190.0">
+                            <TableView layoutY="190.0" prefHeight="392.0" prefWidth="884.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="190.0">
                     <columns>
-                        <TableColumn fx:id="colNomeCliente" editable="false" prefWidth="113.6000046133995" text="Id" />
-                        <TableColumn fx:id="colDescricao" editable="false" prefWidth="147.2000503540039" text="Nome" />
-                        <TableColumn fx:id="colValor" editable="false" prefWidth="101.0" text="Telefone" />
-                        <TableColumn fx:id="colTipo" editable="false" minWidth="8.0" prefWidth="134.0" text="Email" />
+                        <TableColumn editable="false" prefWidth="113.6000046133995" text="Id" />
+                        <TableColumn editable="false" prefWidth="147.2000503540039" text="Nome" />
+                        <TableColumn editable="false" prefWidth="101.0" text="Telefone" />
+                        <TableColumn editable="false" minWidth="8.0" prefWidth="134.0" text="Email" />
                     </columns>
                 </TableView>
             </children>

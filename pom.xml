@@ -88,7 +88,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                org.acgproject.gerencimentodeestoque/org.acgproject.gerencimentodeestoque.view.Main
+                                org.acgproject.gerencimentodeestoque/org.acgproject.gerencimentodeestoque.view.App
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
