@@ -1,6 +1,7 @@
 module org.acgproject.gerencimentodeestoque {
     requires javafx.controls;
     requires javafx.fxml;
+    requires jakarta.persistence;
 
     // Abre o pacote 'view' para reflexão, necessário para carregar FXML
     opens org.acgproject.gerencimentodeestoque.view to javafx.fxml;
