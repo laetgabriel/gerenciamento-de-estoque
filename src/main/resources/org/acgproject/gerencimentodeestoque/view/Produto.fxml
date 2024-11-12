@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.acgprojeto.view.controller.PedidoController">
+    <content>
+        <AnchorPane prefHeight="582.0" prefWidth="884.0">
+            <children>
+                <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="Cadastro">
+                            <items>
+                                <MenuItem fx:id="menuItemPedido" mnemonicParsing="false" onAction="#onMenuItemPedido" text="Movimentação Estoque" />
+                                <MenuItem fx:id="menuItemProduto" mnemonicParsing="false" onAction="#onMenuItemProduto" text="Fornecedor" />
+                        <MenuItem mnemonicParsing="false" text="Categoria" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+
+                            <Label alignment="CENTER" contentDisplay="CENTER" text="Produtos" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
+                    <font>
+                        <Font name="System Bold" size="40.0" />
+                    </font>
+                </Label>
+
+                            <Button fx:id="btnNovo" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="113.0" mnemonicParsing="false" onAction="#onBtnNovo" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: green;" text="Novo" textFill="WHITE" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="113.0">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+            <Button fx:id="btnNovo1" alignment="CENTER" contentDisplay="CENTER" layoutX="142.0" layoutY="113.0" mnemonicParsing="false" onAction="#onBtnNovo" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: green;" text="Atualizar" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnNovo2" alignment="CENTER" contentDisplay="CENTER" layoutX="275.0" layoutY="113.0" mnemonicParsing="false" onAction="#onBtnNovo" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: #FF4500;" text="Excluir" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnNovo3" alignment="CENTER" contentDisplay="CENTER" layoutX="724.0" layoutY="113.0" mnemonicParsing="false" onAction="#onBtnNovo" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: green;" text="Gerar Relatório" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+
+                            <Label layoutX="7.0" layoutY="159.0" text="Filtro por fornecedor:" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="159.0">
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                </Label>
+            <ComboBox fx:id="comboBoxFiltroData" layoutX="142.0" layoutY="156.0" onAction="#onComboBoxFiltroChanged" prefHeight="25.0" prefWidth="164.0" promptText="selecione o fornecedor" />
+            <Label layoutX="312.0" layoutY="160.0" text="Filtro por produto:">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <TextField layoutX="433.0" layoutY="157.0" prefHeight="25.0" prefWidth="153.0" promptText="Digite o nome do produto" />
+            <Label layoutX="594.0" layoutY="159.0" text="Filtro por categoria:">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="comboBoxFiltroData1" layoutX="723.0" layoutY="157.0" onAction="#onComboBoxFiltroChanged" prefHeight="25.0" prefWidth="155.0" promptText="selecione a categoria" />
+
+                            <TableView fx:id="tableViewPedido" layoutY="190.0" prefHeight="392.0" prefWidth="884.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="190.0">
+                    <columns>
+                        <TableColumn fx:id="colNomeCliente" prefWidth="113.6000046133995" text="Id" />
+                        <TableColumn fx:id="colDescricao" prefWidth="147.2000503540039" text="Nome" />
+                        <TableColumn fx:id="colValor" prefWidth="101.0" text="Preço" />
+                        <TableColumn fx:id="colTipo" minWidth="8.0" prefWidth="134.0" text="Quantidade" />
+                        <TableColumn fx:id="colEstado" prefWidth="114.0" text="Data Cadastro" />
+                  <TableColumn fx:id="colMudarEstado" prefWidth="122.0" text="Categoria" />
+                  <TableColumn prefWidth="115.0" text="Fornecedor" />
+                    </columns>
+                </TableView>
+            </children>
+        </AnchorPane>
+    </content>
+</ScrollPane>
