@@ -3,8 +3,6 @@ package org.acgproject.gerencimentodeestoque.mapper;
 import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
 import org.acgproject.gerencimentodeestoque.model.entities.Categoria;
 import org.modelmapper.ModelMapper;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

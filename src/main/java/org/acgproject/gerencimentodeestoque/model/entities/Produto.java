@@ -22,7 +22,6 @@ public class Produto {
     @Column(nullable = false)
     private Integer quantidade = 0;
 
-
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Date dataCadastro;

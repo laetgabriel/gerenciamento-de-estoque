@@ -1,4 +1,4 @@
-package org.acgproject.gerencimentodeestoque.db;
+package org.acgproject.gerencimentodeestoque.test;
 
 import org.acgproject.gerencimentodeestoque.dao.CategoriaDAO;
 import org.acgproject.gerencimentodeestoque.dao.impl.CategoriaDAOImpl;
@@ -7,7 +7,7 @@ import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
 import java.util.List;
 
 
-public class DB {
+public class App {
 
     public static void main(String[] args) {
         CategoriaDAO categoriaDAO = new CategoriaDAOImpl();
