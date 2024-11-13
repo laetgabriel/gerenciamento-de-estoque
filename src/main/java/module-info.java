@@ -8,7 +8,7 @@ module org.acgproject.gerencimentodeestoque {
     opens org.acgproject.gerencimentodeestoque.model.entities;
     opens org.acgproject.gerencimentodeestoque.view to javafx.fxml;
     exports org.acgproject.gerencimentodeestoque.view;
-
+    exports org.acgproject.gerencimentodeestoque.dto;
     exports org.acgproject.gerencimentodeestoque.controller;
     opens org.acgproject.gerencimentodeestoque.controller to javafx.fxml;
 
