@@ -6,23 +6,25 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
+@Table(name = "produtos")
 public class Produto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false, unique = true)
     private String nome;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal preco;
 
-    @Column(nullable = false, columnDefinition = "INT DEFAULT 0")
-    private Integer quantidade;
+    @Column(nullable = false)
+    private Integer quantidade = 0;
 
-    @Column(nullable = false, columnDefinition = "DECIMAL(10,2)")
+
     @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
     private Date dataCadastro;
 
     @ManyToOne
@@ -74,4 +76,34 @@ public class Produto {
     public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", preco=" + preco +
+                ", quantidade=" + quantidade +
+                ", dataCadastro=" + dataCadastro +
+                ", fornecedor=" + fornecedor +
+                ", categoria=" + categoria +
+                '}';
+    }
+
 }

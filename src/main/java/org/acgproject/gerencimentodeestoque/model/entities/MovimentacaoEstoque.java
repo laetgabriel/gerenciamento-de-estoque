@@ -6,10 +6,11 @@ import org.acgproject.gerencimentodeestoque.model.enums.TipoMovimentacao;
 import java.util.Date;
 
 @Entity
+@Table(name = "movimentacaoestoque")
 public class MovimentacaoEstoque {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Enumerated(EnumType.STRING)
@@ -25,6 +26,8 @@ public class MovimentacaoEstoque {
     @JoinColumn(name = "fk_Produto_Id", nullable = false)
     @ManyToOne
     private Produto produto;
+
+    public MovimentacaoEstoque(){}
 
     @PrePersist
     @PreUpdate
