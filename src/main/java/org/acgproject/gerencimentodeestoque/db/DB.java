@@ -3,13 +3,8 @@ package org.acgproject.gerencimentodeestoque.db;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import org.acgproject.gerencimentodeestoque.model.entities.Produto;
-import org.acgproject.gerencimentodeestoque.model.entities.Fornecedor;
 import org.acgproject.gerencimentodeestoque.model.entities.Categoria;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.sql.Date;
 
 public class DB {
 
