@@ -11,7 +11,7 @@ target/
 *.iws
 *.iml
 *.ipr
-/src/main/resources/META-inf/persistence.xml
+/src/main/resources/META-inf/
 
 ### Eclipse ###
 .apt_generated

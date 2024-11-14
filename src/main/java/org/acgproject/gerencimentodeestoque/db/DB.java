@@ -1,13 +1,13 @@
-package org.acgproject.gerencimentodeestoque.conexao;
+package org.acgproject.gerencimentodeestoque.db;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-public class Conexao {
+public class DB {
     private static EntityManagerFactory emf = null;
 
-    private Conexao() {}
+    private DB() {}
 
     public static EntityManager getConexao(){
         if (emf == null){

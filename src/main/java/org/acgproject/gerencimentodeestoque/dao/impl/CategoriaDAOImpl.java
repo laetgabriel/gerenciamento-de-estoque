@@ -1,9 +1,7 @@
 package org.acgproject.gerencimentodeestoque.dao.impl;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import org.acgproject.gerencimentodeestoque.conexao.Conexao;
+import org.acgproject.gerencimentodeestoque.db.DB;
 import org.acgproject.gerencimentodeestoque.dao.CategoriaDAO;
 import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
 import org.acgproject.gerencimentodeestoque.mapper.CategoriaMapper;
@@ -15,7 +13,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 
     @Override
     public void inserirCategoria(CategoriaDTO categoriaDTO) {
-        try (EntityManager entityManager = Conexao.getConexao()) {
+        try (EntityManager entityManager = DB.getConexao()) {
             Categoria categoria = CategoriaMapper.toEntity(categoriaDTO);
             entityManager.getTransaction().begin();
             entityManager.persist(categoria);
@@ -25,7 +23,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 
     @Override
     public void alterarCategoria(CategoriaDTO categoriaDTO) {
-        try (EntityManager entityManager = Conexao.getConexao()) {
+        try (EntityManager entityManager = DB.getConexao()) {
             Categoria categoria = CategoriaMapper.toEntity(categoriaDTO);
             entityManager.getTransaction().begin();
             entityManager.merge(categoria);
@@ -35,7 +33,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 
     @Override
     public void excluirCategoria(Integer id) {
-        try (EntityManager entityManager = Conexao.getConexao()) {
+        try (EntityManager entityManager = DB.getConexao()) {
             entityManager.getTransaction().begin();
             Categoria categoria = entityManager.find(Categoria.class, id);
             if (categoria != null) {
@@ -47,7 +45,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 
     @Override
     public CategoriaDTO buscarCategoria(Integer id) {
-        try (EntityManager entityManager = Conexao.getConexao()) {
+        try (EntityManager entityManager = DB.getConexao()) {
             Categoria categoria = entityManager.find(Categoria.class, id);
             return CategoriaMapper.toDTO(categoria);
         }
@@ -55,7 +53,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 
     @Override
     public List<CategoriaDTO> listarCategorias() {
-        try (EntityManager entityManager = Conexao.getConexao()) {
+        try (EntityManager entityManager = DB.getConexao()) {
             List<Categoria> categorias = entityManager.createQuery("from Categoria", Categoria.class).getResultList();
             return CategoriaMapper.toDTOList(categorias);
         }

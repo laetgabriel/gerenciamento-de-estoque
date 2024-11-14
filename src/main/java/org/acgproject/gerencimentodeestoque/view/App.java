@@ -5,13 +5,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class App extends Application {
+
+    private static Stage stage;
+
     @Override
     public void start(Stage stage) throws IOException {
+        App.stage = stage;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/acgproject/gerencimentodeestoque/view" +
                 "/Categoria.fxml"));
 
@@ -25,6 +30,10 @@ public class App extends Application {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
+    }
+
+    public static Stage getMainStage() {
+        return stage;
     }
 
     public static void main(String[] args) {

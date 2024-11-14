@@ -1,7 +1,7 @@
 package org.acgproject.gerencimentodeestoque.dao.impl;
 
 import jakarta.persistence.EntityManager;
-import org.acgproject.gerencimentodeestoque.conexao.Conexao;
+import org.acgproject.gerencimentodeestoque.db.DB;
 import org.acgproject.gerencimentodeestoque.dao.ProdutoDAO;
 import org.acgproject.gerencimentodeestoque.dto.ProdutoDTO;
 import org.acgproject.gerencimentodeestoque.mapper.ProdutoMapper;
@@ -13,7 +13,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 
     @Override
     public void inserirProduto(ProdutoDTO produtoDTO) {
-        try(EntityManager em = Conexao.getConexao()) {
+        try(EntityManager em = DB.getConexao()) {
             Produto produto = ProdutoMapper.toEntity(produtoDTO);
             em.getTransaction().begin();
             em.persist(produto);
@@ -23,7 +23,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 
     @Override
     public void alterarProduto(ProdutoDTO produtoDTO) {
-        try(EntityManager em = Conexao.getConexao()) {
+        try(EntityManager em = DB.getConexao()) {
             Produto produto = ProdutoMapper.toEntity(produtoDTO);
             em.getTransaction().begin();
             em.merge(produto);
@@ -33,7 +33,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 
     @Override
     public void excluirProduto(Integer id) {
-        try(EntityManager em = Conexao.getConexao()) {
+        try(EntityManager em = DB.getConexao()) {
             Produto produto = em.find(Produto.class, id);
             em.getTransaction().begin();
             em.remove(produto);
@@ -43,7 +43,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 
     @Override
     public ProdutoDTO buscarProduto(Integer id) {
-        try(EntityManager em = Conexao.getConexao()) {
+        try(EntityManager em = DB.getConexao()) {
             Produto produto = em.find(Produto.class, id);
             return ProdutoMapper.toDTO(produto);
         }
@@ -51,7 +51,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 
     @Override
     public List<ProdutoDTO> listarProdutos() {
-        try(EntityManager em = Conexao.getConexao()) {
+        try(EntityManager em = DB.getConexao()) {
             List<Produto> produtos = em.createQuery("from Produto").getResultList();
             return ProdutoMapper.toDTOList(produtos);
         }
