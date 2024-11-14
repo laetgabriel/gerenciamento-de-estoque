@@ -38,8 +38,8 @@
          </image>
       </ImageView>
       <TextArea fx:id="txtDescricao" layoutX="167.0" layoutY="239.0" prefHeight="135.0" prefWidth="338.0" promptText="Descreva a categoria (opcional)" />
-      <Button fx:id="btnSalvar" layoutX="133.0" layoutY="477.0" mnemonicParsing="false" onAction="#salvarCategoria" prefHeight="32.0" prefWidth="159.0" style="-fx-background-color: green;" text="Salvar" textFill="WHITE" />
-      <Button fx:id="btnCancelar" layoutX="348.0" layoutY="477.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="159.0" style="-fx-background-color: green;" text="Cancelar" textFill="WHITE" />
+      <Button fx:id="btnSalvar" layoutX="133.0" layoutY="477.0" mnemonicParsing="false" onAction="#onBtnSalvar" prefHeight="32.0" prefWidth="159.0" style="-fx-background-color: green;" text="Salvar" textFill="WHITE" />
+      <Button fx:id="btnCancelar" layoutX="348.0" layoutY="477.0" mnemonicParsing="false" onAction="#onBtnCancelar" prefHeight="32.0" prefWidth="159.0" style="-fx-background-color: green;" text="Cancelar" textFill="WHITE" />
       <Label fx:id="lblErroNomeCategoria" layoutX="167.0" layoutY="191.0" prefHeight="17.0" prefWidth="338.0" textFill="RED" />
       <Label fx:id="lblErroDescricaoCategoria" layoutX="167.0" layoutY="374.0" prefHeight="17.0" prefWidth="338.0" textFill="RED" />
    </children>

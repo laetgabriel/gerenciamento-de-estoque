@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.acgproject.gerencimentodeestoque.dao.CategoriaDAO;
 import org.acgproject.gerencimentodeestoque.dao.impl.CategoriaDAOImpl;
 import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
@@ -35,7 +36,7 @@ public class CadastroCategoriaController implements Initializable {
 
     private final CategoriaDAO categoriaDAO = new CategoriaDAOImpl();
 
-    public void salvarCategoria() {
+    public void onBtnSalvar() {
 
         lblErroNomeCategoria.setText("");
         lblErroDescricaoCategoria.setText("");
@@ -47,5 +48,10 @@ public class CadastroCategoriaController implements Initializable {
 
         lblErroNomeCategoria.setText("");
         lblErroDescricaoCategoria.setText("");
+    }
+
+    public void onBtnCancelar(){
+        Stage palco = (Stage) btnCancelar.getScene().getWindow();
+        palco.close();
     }
 }
