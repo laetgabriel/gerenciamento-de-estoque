@@ -16,11 +16,6 @@ import java.util.ResourceBundle;
 
 public class CadastroCategoriaController implements Initializable {
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
-
     @FXML
     private TextField txtNome;
     @FXML
@@ -36,6 +31,7 @@ public class CadastroCategoriaController implements Initializable {
 
     private final CategoriaDAO categoriaDAO = new CategoriaDAOImpl();
 
+    @FXML
     public void onBtnSalvar() {
 
         lblErroNomeCategoria.setText("");
@@ -50,8 +46,14 @@ public class CadastroCategoriaController implements Initializable {
         lblErroDescricaoCategoria.setText("");
     }
 
+    @FXML
     public void onBtnCancelar(){
         Stage palco = (Stage) btnCancelar.getScene().getWindow();
         palco.close();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }

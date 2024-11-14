@@ -3,9 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -17,17 +14,6 @@
     <content>
         <AnchorPane prefHeight="582.0" prefWidth="884.0">
             <children>
-                <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <menus>
-                        <Menu mnemonicParsing="false" text="Cadastro">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Movimentação Estoque" />
-                                <MenuItem mnemonicParsing="false" text="Fornecedor" />
-                        <MenuItem mnemonicParsing="false" text="Categoria" />
-                            </items>
-                        </Menu>
-                    </menus>
-                </MenuBar>
 
                             <Label alignment="CENTER" contentDisplay="CENTER" text="Produtos" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
                     <font>
