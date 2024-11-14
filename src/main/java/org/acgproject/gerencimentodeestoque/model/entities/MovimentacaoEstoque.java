@@ -3,10 +3,9 @@ package org.acgproject.gerencimentodeestoque.model.entities;
 import jakarta.persistence.*;
 import org.acgproject.gerencimentodeestoque.model.enums.TipoMovimentacao;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "movimentacaoestoque")
 public class MovimentacaoEstoque {
 
     @Id
@@ -18,12 +17,12 @@ public class MovimentacaoEstoque {
     private TipoMovimentacao tipoMovimentacao;
 
     @Column(nullable = false)
-    private int quantidade;
+    private Integer quantidade;
 
     @Column(nullable = false)
-    private Date data;
+    private LocalDate data;
 
-    @JoinColumn(name = "fk_Produto_Id", nullable = false)
+    @JoinColumn(name = "id_produto", nullable = false)
     @ManyToOne
     private Produto produto;
 
@@ -53,19 +52,19 @@ public class MovimentacaoEstoque {
         this.tipoMovimentacao = tipoMovimentacao;
     }
 
-    public int getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 }
