@@ -3,7 +3,6 @@ package org.acgproject.gerencimentodeestoque.model.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "fornecedores")
 public class Fornecedor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,10 +11,10 @@ public class Fornecedor {
     @Column(nullable = false, unique = true)
     private String nome;
 
-    @Column()
+    @Column(nullable = false, unique = true, length = 15)
     private String telefone;
 
-    @Column()
+    @Column(unique = true)
     private String email;
 
     public Fornecedor() {}

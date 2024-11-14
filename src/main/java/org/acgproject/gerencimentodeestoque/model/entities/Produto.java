@@ -3,10 +3,9 @@ package org.acgproject.gerencimentodeestoque.model.entities;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "produtos")
 public class Produto {
 
     @Id
@@ -22,16 +21,15 @@ public class Produto {
     @Column(nullable = false)
     private Integer quantidade = 0;
 
-    @Temporal(TemporalType.DATE)
     @Column(nullable = false)
-    private Date dataCadastro;
+    private LocalDate dataCadastro;
 
     @ManyToOne
-    @JoinColumn(name = "fk_fornecedor_id", nullable = false)
+    @JoinColumn(name = "id_fornecedor", nullable = false)
     private Fornecedor fornecedor;
 
     @ManyToOne
-    @JoinColumn(name = "fk_categoria_id", nullable = false)
+    @JoinColumn(name = "id_categoria", nullable = false)
     private Categoria categoria;
 
     public Produto(){}
@@ -68,11 +66,11 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-    public Date getDataCadastro() {
+    public LocalDate getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Date dataCadastro) {
+    public void setDataCadastro(LocalDate dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
