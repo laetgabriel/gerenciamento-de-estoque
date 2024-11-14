@@ -11,6 +11,7 @@ public interface CategoriaDAO {
     void excluirCategoria(Integer id);
     CategoriaDTO buscarCategoria(Integer id);
     List<CategoriaDTO> listarCategorias();
+    boolean nomeCategoriaExiste(String nome);
 
 
 }
