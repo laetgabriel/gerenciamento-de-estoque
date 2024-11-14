@@ -15,12 +15,7 @@ import org.acgproject.gerencimentodeestoque.view.controller.exceptions.Validacao
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CadastroCategoriaController implements Initializable {
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
+public class CadastroCategoriaController {
 
     @FXML
     private TextField txtNome;
@@ -52,6 +47,9 @@ public class CadastroCategoriaController implements Initializable {
             txtDescricao.clear();
             lblErroNomeCategoria.setText("");
             lblErroDescricaoCategoria.setText("");
+
+            Stage palco = (Stage) btnSalvar.getScene().getWindow();
+            palco.close();
         } catch (ValidacaoException e) {
             lblErroNomeCategoria.setText(e.getMessage());
         }
