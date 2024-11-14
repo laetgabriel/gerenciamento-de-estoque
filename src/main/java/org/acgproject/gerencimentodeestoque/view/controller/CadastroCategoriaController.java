@@ -48,23 +48,25 @@ public class CadastroCategoriaController implements Initializable {
             CategoriaDTO categoriaDTO = new CategoriaDTO(null, nome, descricao);
             categoriaDAO.inserirCategoria(categoriaDTO);
 
+            txtNome.clear();
+            txtDescricao.clear();
             lblErroNomeCategoria.setText("");
             lblErroDescricaoCategoria.setText("");
-        }catch (ValidacaoException e) {
+        } catch (ValidacaoException e) {
             lblErroNomeCategoria.setText(e.getMessage());
         }
     }
 
-    public void onBtnCancelar(){
+    public void onBtnCancelar() {
         Stage palco = (Stage) btnCancelar.getScene().getWindow();
         palco.close();
     }
 
-    private void validarCategoria(String nome) throws ValidacaoException{
-        if(nome == null || nome.isEmpty()) {
+    private void validarCategoria(String nome) throws ValidacaoException {
+        if (nome == null || nome.isEmpty() || nome.length() >= 255) {
             throw new ValidacaoException("Nome inválido");
         }
-        if(categoriaDAO.nomeCategoriaExiste(nome)){
+        if (categoriaDAO.nomeCategoriaExiste(nome)) {
             throw new ValidacaoException("Nome de categoria já existe");
         }
     }
