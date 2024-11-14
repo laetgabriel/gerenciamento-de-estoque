@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.acgproject.gerencimentodeestoque.utils.Viewer;
 
 import java.io.IOException;
 
@@ -17,19 +18,8 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         App.stage = stage;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/acgproject/gerencimentodeestoque/view" +
-                "/Categoria.fxml"));
-
-        ScrollPane scroll = loader.load();
-
-        scroll.setFitToWidth(true);
-        scroll.setFitToHeight(true);
-
-        Scene scene = new Scene(scroll);
-        stage.setTitle("Gerenciamento Estoque");
-        stage.setScene(scene);
-        stage.centerOnScreen();
-        stage.show();
+        Viewer.loadView("/org/acgproject/gerencimentodeestoque/view" +
+        "/Categoria.fxml");
     }
 
     public static Stage getMainStage() {

@@ -11,6 +11,6 @@ public class CategoriaController {
 
     @FXML
     private void btnNovaCategoria() {
-        Viewer.loadView("/org/acgproject/gerencimentodeestoque/view/CadastroCategoria.fxml");
+        Viewer.loadViewCadastro("/org/acgproject/gerencimentodeestoque/view/CadastroCategoria.fxml");
     }
 }
