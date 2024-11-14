@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.acgproject.gerencimentodeestoque.view.controller.CadastroProdutoController">
    <children>
       <Label layoutX="176.0" layoutY="14.0" text="Cadastro Produto">
          <font>
@@ -27,7 +27,7 @@
             <Image url="@../icones/produto.png" />
          </image>
       </ImageView>
-      <TextField layoutX="98.0" layoutY="164.0" prefHeight="30.0" prefWidth="192.0" promptText="Digite o nome do produto" />
+      <TextField fx:id="txtNome" layoutX="98.0" layoutY="164.0" prefHeight="30.0" prefWidth="192.0" promptText="Digite o nome do produto" />
       <Label layoutX="348.0" layoutY="131.0" text="Preço">
          <font>
             <Font size="20.0" />
@@ -38,7 +38,7 @@
             <Image url="@../icones/preco.png" />
          </image>
       </ImageView>
-      <TextField layoutX="386.0" layoutY="165.0" prefHeight="30.0" prefWidth="192.0" promptText="Digite o preço do produto" />
+      <TextField fx:id="txtPreco" layoutX="386.0" layoutY="165.0" prefHeight="30.0" prefWidth="192.0" promptText="Digite o preço do produto" />
       <Label layoutX="67.0" layoutY="216.0" text="Quantidade">
          <font>
             <Font size="20.0" />
@@ -49,7 +49,7 @@
             <Image url="@../icones/quantidade.png" />
          </image>
       </ImageView>
-      <TextField layoutX="97.0" layoutY="250.0" prefHeight="30.0" prefWidth="192.0" promptText="Digite a quantidade em estoque" />
+      <TextField fx:id="txtQuantidade" layoutX="97.0" layoutY="250.0" prefHeight="30.0" prefWidth="192.0" promptText="Digite a quantidade em estoque" />
       <Label layoutX="348.0" layoutY="218.0" text="Categoria">
          <font>
             <Font size="20.0" />
@@ -60,7 +60,7 @@
             <Image url="@../icones/categoria.png" />
          </image>
       </ImageView>
-      <ComboBox layoutX="380.0" layoutY="252.0" prefHeight="30.0" prefWidth="192.0" promptText="Selecione a categoria" />
+      <ComboBox fx:id="comboBoxCategoria" layoutX="380.0" layoutY="252.0" prefHeight="30.0" prefWidth="192.0" promptText="Selecione a categoria" />
       <Label layoutX="64.0" layoutY="303.0" text="Fornecedor">
          <font>
             <Font size="20.0" />
@@ -71,7 +71,7 @@
             <Image url="@../icones/fornecedor.png" />
          </image>
       </ImageView>
-      <ComboBox layoutX="98.0" layoutY="335.0" prefHeight="30.0" prefWidth="192.0" promptText="Selecione o fornecedor" />
+      <ComboBox fx:id="comboBoxFornecedor" layoutX="98.0" layoutY="335.0" onAction="#salvarProduto" prefHeight="30.0" prefWidth="192.0" promptText="Selecione o fornecedor" />
       <Label layoutX="349.0" layoutY="305.0" text="Data">
          <font>
             <Font size="20.0" />
@@ -82,14 +82,14 @@
             <Image url="@../icones/data.png" />
          </image>
       </ImageView>
-      <DatePicker layoutX="382.0" layoutY="333.0" prefHeight="32.0" prefWidth="192.0" promptText="Escolha a data de cadastro" />
-      <Button layoutX="133.0" layoutY="477.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="159.0" style="-fx-background-color: green;" text="Salvar" textFill="WHITE" />
-      <Button layoutX="348.0" layoutY="477.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="159.0" style="-fx-background-color: green;" text="Cancelar" textFill="WHITE" />
-      <Label layoutX="99.0" layoutY="196.0" prefHeight="17.0" prefWidth="192.0" text="Erro no nome" textFill="RED" />
-      <Label layoutX="99.0" layoutY="282.0" prefHeight="17.0" prefWidth="192.0" text="Erro na quantidade" textFill="RED" />
-      <Label layoutX="99.0" layoutY="366.0" prefHeight="17.0" prefWidth="192.0" text="Erro no fornecedor" textFill="RED" />
-      <Label layoutX="386.0" layoutY="196.0" prefHeight="17.0" prefWidth="192.0" text="Erro no preço" textFill="RED" />
-      <Label layoutX="380.0" layoutY="282.0" prefHeight="17.0" prefWidth="192.0" text="Erro na categoria" textFill="RED" />
-      <Label layoutX="382.0" layoutY="366.0" prefHeight="17.0" prefWidth="192.0" text="Erro na data" textFill="RED" />
+      <DatePicker fx:id="data" layoutX="382.0" layoutY="333.0" prefHeight="32.0" prefWidth="192.0" promptText="Escolha a data de cadastro" />
+      <Button fx:id="btnSalvar" layoutX="133.0" layoutY="477.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="159.0" style="-fx-background-color: green;" text="Salvar" textFill="WHITE" />
+      <Button fx:id="btnCancelar" layoutX="348.0" layoutY="477.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="159.0" style="-fx-background-color: green;" text="Cancelar" textFill="WHITE" />
+      <Label fx:id="lblErroNome" layoutX="99.0" layoutY="196.0" prefHeight="17.0" prefWidth="192.0" text="Erro no nome" textFill="RED" />
+      <Label fx:id="lblErroQuantidade" layoutX="99.0" layoutY="282.0" prefHeight="17.0" prefWidth="192.0" text="Erro na quantidade" textFill="RED" />
+      <Label fx:id="lblErroFornecedor" layoutX="99.0" layoutY="366.0" prefHeight="17.0" prefWidth="192.0" text="Erro no fornecedor" textFill="RED" />
+      <Label fx:id="lblErroPreco" layoutX="386.0" layoutY="196.0" prefHeight="17.0" prefWidth="192.0" text="Erro no preço" textFill="RED" />
+      <Label fx:id="lblErroCategoria" layoutX="380.0" layoutY="282.0" prefHeight="17.0" prefWidth="192.0" text="Erro na categoria" textFill="RED" />
+      <Label fx:id="lblErroData" layoutX="382.0" layoutY="366.0" prefHeight="17.0" prefWidth="192.0" text="Erro na data" textFill="RED" />
    </children>
 </AnchorPane>
