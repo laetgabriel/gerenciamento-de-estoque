@@ -1,6 +1,7 @@
 package org.acgproject.gerencimentodeestoque.dao.impl;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import org.acgproject.gerencimentodeestoque.db.DB;
 import org.acgproject.gerencimentodeestoque.dao.CategoriaDAO;
 import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
@@ -56,6 +57,16 @@ public class CategoriaDAOImpl implements CategoriaDAO {
         try (EntityManager entityManager = DB.getConexao()) {
             List<Categoria> categorias = entityManager.createQuery("from Categoria", Categoria.class).getResultList();
             return CategoriaMapper.toDTOList(categorias);
+        }
+    }
+
+    @Override
+    public boolean nomeCategoriaExiste(String nome) {
+        try (EntityManager entityManager = DB.getConexao()) {
+            TypedQuery<Categoria> query = entityManager.createQuery("from Categoria where nome = :nome", Categoria.class);
+            query.setParameter("nome", nome);
+
+            return !query.getResultList().isEmpty();
         }
     }
 }
