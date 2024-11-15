@@ -8,9 +8,9 @@ public class EmailFornecedorHandler extends FornecedorHandler {
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
 
     @Override
-    public FornecedorDTO handle(FornecedorDTO fornecedorDTO) {
+    public FornecedorDTO handle(FornecedorDTO fornecedorDTO) throws ValidacaoException {
         if (!fornecedorDTO.getEmail().matches(EMAIL_REGEX) || fornecedorDTO.getEmail().isEmpty() || fornecedorDTO.getEmail() == null) {
-            throw new ValidacaoException("Erro ao inserir Email");
+            throw new ValidacaoException("Digite um email válido!");
         }
         return super.handle(fornecedorDTO);
     }
