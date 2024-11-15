@@ -9,5 +9,6 @@ public interface FornecedorDAO {
     void alterarFornecedor(FornecedorDTO fornecedor);
     void excluirFornecedor(Integer id);
     FornecedorDTO consultarFornecedor(Integer id);
-    List<FornecedorDTO> listarFornecedor();
+    FornecedorDTO consultarFornecedorPorNome(String nome);
+    List<FornecedorDTO> listarTodosOsFornecedores();
 }

@@ -4,6 +4,7 @@ import org.acgproject.gerencimentodeestoque.model.entities.Categoria;
 import org.acgproject.gerencimentodeestoque.model.entities.Fornecedor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class ProdutoDTO {
@@ -12,14 +13,23 @@ public class ProdutoDTO {
     private String nome;
     private BigDecimal preco;
     private Integer quantidade = 0;
-    private Date dataCadastro;
-    private Fornecedor fornecedor;
-    private Categoria categoria;
+    private LocalDate dataCadastro;
+    private FornecedorDTO fornecedor;
+    private CategoriaDTO categoria;
 
     public ProdutoDTO() {}
 
-    public ProdutoDTO(Integer id, String nome, BigDecimal preco, Integer quantidade, Date dataCadastro, Fornecedor fornecedor, Categoria categoria) {
+    public ProdutoDTO(Integer id, String nome, BigDecimal preco, Integer quantidade, LocalDate dataCadastro, FornecedorDTO fornecedor, CategoriaDTO categoria) {
         this.id = id;
+        this.nome = nome;
+        this.preco = preco;
+        this.quantidade = quantidade;
+        this.dataCadastro = dataCadastro;
+        this.fornecedor = fornecedor;
+        this.categoria = categoria;
+    }
+
+    public ProdutoDTO(String nome, BigDecimal preco, Integer quantidade, LocalDate dataCadastro, FornecedorDTO fornecedor, CategoriaDTO categoria) {
         this.nome = nome;
         this.preco = preco;
         this.quantidade = quantidade;
@@ -60,27 +70,27 @@ public class ProdutoDTO {
         this.quantidade = quantidade;
     }
 
-    public Date getDataCadastro() {
+    public LocalDate getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Date dataCadastro) {
+    public void setDataCadastro(LocalDate dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
-    public Fornecedor getFornecedor() {
+    public FornecedorDTO getFornecedor() {
         return fornecedor;
     }
 
-    public void setFornecedor(Fornecedor fornecedor) {
+    public void setFornecedor(FornecedorDTO fornecedor) {
         this.fornecedor = fornecedor;
     }
 
-    public Categoria getCategoria() {
+    public CategoriaDTO getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
+    public void setCategoria(CategoriaDTO categoria) {
         this.categoria = categoria;
     }
 }

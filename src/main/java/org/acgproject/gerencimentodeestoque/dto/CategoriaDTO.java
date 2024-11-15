@@ -42,10 +42,6 @@ public class CategoriaDTO {
 
     @Override
     public String toString() {
-        return "CategoriaDTO{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", descricao='" + descricao + '\'' +
-                '}';
+        return nome;
     }
 }

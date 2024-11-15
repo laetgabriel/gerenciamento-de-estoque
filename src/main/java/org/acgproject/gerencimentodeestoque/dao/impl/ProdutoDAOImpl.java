@@ -9,7 +9,7 @@ import org.acgproject.gerencimentodeestoque.model.entities.Produto;
 
 import java.util.List;
 
-public class ProdutoDAOImpl implements ProdutoDAO {
+public class ProdutoDAOImpl implements ProdutoDAO{
 
     @Override
     public void inserirProduto(ProdutoDTO produtoDTO) {
