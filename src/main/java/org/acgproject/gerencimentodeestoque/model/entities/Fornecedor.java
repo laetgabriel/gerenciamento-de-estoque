@@ -2,6 +2,8 @@ package org.acgproject.gerencimentodeestoque.model.entities;
 
 import jakarta.persistence.*;
 
+import java.math.BigInteger;
+
 @Entity
 public class Fornecedor {
     @Id
@@ -11,7 +13,7 @@ public class Fornecedor {
     @Column(nullable = false, unique = true)
     private String nome;
 
-    @Column(nullable = false, unique = true, length = 15)
+    @Column(nullable = false, unique = true, length = 11)
     private String telefone;
 
     @Column(unique = true)

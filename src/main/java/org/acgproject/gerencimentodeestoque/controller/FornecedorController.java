@@ -10,6 +10,7 @@ public class FornecedorController {
 
     private FornecedorDAO fornecedorDAO = new FornecedorDAOImpl();
 
+    public void inserirFornecedor(FornecedorDTO fornecedor){fornecedorDAO.inserirFornecedor(fornecedor);}
     public FornecedorDTO consultarFornecedorPorNome(String nome){return fornecedorDAO.consultarFornecedorPorNome(nome);}
     public List<FornecedorDTO> listarTodosOsFornecedores() { return fornecedorDAO.listarTodosOsFornecedores();}
 }

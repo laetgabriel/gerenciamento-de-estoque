@@ -73,6 +73,7 @@ public class CadastroProdutoController implements Initializable {
         try{
             ProdutoDTO produtoDTO = getDados();
             produtoController.inserirProduto(produtoDTO);
+            Alertas.mostrarAlerta("Sucesso", "Produto salvo com sucesso!", Alert.AlertType.INFORMATION);
             Stage palco = (Stage) btnSalvar.getScene().getWindow();
             palco.close();
         }catch (ValidacaoCadastrosException e){

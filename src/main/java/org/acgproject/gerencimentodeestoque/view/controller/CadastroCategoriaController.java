@@ -2,14 +2,12 @@ package org.acgproject.gerencimentodeestoque.view.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.acgproject.gerencimentodeestoque.dao.CategoriaDAO;
 import org.acgproject.gerencimentodeestoque.dao.impl.CategoriaDAOImpl;
 import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
+import org.acgproject.gerencimentodeestoque.utils.Alertas;
 import org.acgproject.gerencimentodeestoque.view.controller.exceptions.ValidacaoException;
 
 import java.net.URL;
@@ -48,6 +46,7 @@ public class CadastroCategoriaController {
             lblErroNomeCategoria.setText("");
             lblErroDescricaoCategoria.setText("");
 
+            Alertas.mostrarAlerta("Sucesso", "Categoria salva com sucesso!", Alert.AlertType.INFORMATION);
             Stage palco = (Stage) btnSalvar.getScene().getWindow();
             palco.close();
         } catch (ValidacaoException e) {

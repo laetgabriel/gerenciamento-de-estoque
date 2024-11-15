@@ -8,9 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.ScrollPane?>
-
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.acgproject.gerencimentodeestoque.view.controller.CadastroFornecedorController">
    <children>
       <Label layoutX="165.0" layoutY="14.0" text="Cadastro Fornecedor">
@@ -39,7 +36,7 @@
             <Image url="@../icones/telefone.png" />
          </image>
       </ImageView>
-      <TextField fx:id="txtTelefone" layoutX="171.0" layoutY="256.0" prefHeight="30.0" prefWidth="338.0" promptText="Digite o telefone do fornecedor" />
+      <TextField fx:id="txtTelefone" layoutX="171.0" layoutY="256.0" prefHeight="30.0" prefWidth="338.0" promptText="Digite o telefone do fornecedor (11 dígitos numéricos)" />
       <Label layoutX="136.0" layoutY="302.0" text="Email">
          <font>
             <Font size="20.0" />
@@ -51,8 +48,8 @@
          </image>
       </ImageView>
       <TextField fx:id="txtEmail" layoutX="170.0" layoutY="336.0" prefHeight="30.0" prefWidth="338.0" promptText="Digite o email do fornecedor" />
-      <Button fx:id="btnSalvar" layoutX="133.0" layoutY="477.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="159.0" onAction = "#salvarFornecedor" style="-fx-background-color: green;" text="Salvar" textFill="WHITE" />
-      <Button fx:id="btnCancelar" layoutX="348.0" layoutY="477.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="159.0" onAction="#cancelarCadastro" style="-fx-background-color: green;" text="Cancelar" textFill="WHITE" />
+      <Button fx:id="btnSalvar" layoutX="133.0" layoutY="477.0" mnemonicParsing="false" onAction="#salvarFornecedor" prefHeight="32.0" prefWidth="159.0" style="-fx-background-color: green;" text="Salvar" textFill="WHITE" />
+      <Button fx:id="btnCancelar" layoutX="348.0" layoutY="477.0" mnemonicParsing="false" onAction="#cancelarCadastro" prefHeight="32.0" prefWidth="159.0" style="-fx-background-color: green;" text="Cancelar" textFill="WHITE" />
       <Label fx:id="lblErroNome" layoutX="173.0" layoutY="209.0" prefHeight="17.0" prefWidth="338.0" text="Erro no nome" textFill="RED" />
       <Label fx:id="lblErroTelefone" layoutX="173.0" layoutY="285.0" prefHeight="17.0" prefWidth="338.0" text="Erro no telefone" textFill="RED" />
       <Label fx:id="lblErroEmail" layoutX="170.0" layoutY="367.0" prefHeight="17.0" prefWidth="338.0" text="Erro no email" textFill="RED" />

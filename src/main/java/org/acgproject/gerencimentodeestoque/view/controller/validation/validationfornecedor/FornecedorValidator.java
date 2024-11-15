@@ -1,6 +1,7 @@
 package org.acgproject.gerencimentodeestoque.view.controller.validation.validationfornecedor;
 
 import org.acgproject.gerencimentodeestoque.dto.FornecedorDTO;
+import org.acgproject.gerencimentodeestoque.view.controller.exceptions.ValidacaoException;
 import org.acgproject.gerencimentodeestoque.view.controller.validation.FornecedorHandler;
 
 public class FornecedorValidator {
@@ -18,7 +19,7 @@ public class FornecedorValidator {
         this.firstHandler = nomeFornecedorHandler;
     }
 
-    public void validarFornecedor(FornecedorDTO fornecedorDTO) {
+    public void validarFornecedor(FornecedorDTO fornecedorDTO) throws ValidacaoException {
         if (firstHandler != null) {
             firstHandler.handle(fornecedorDTO);
         }

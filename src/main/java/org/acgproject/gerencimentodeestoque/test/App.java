@@ -29,8 +29,6 @@ public class App {
 
         FornecedorDAO fornecedorDAO = new FornecedorDAOImpl();
 
-        //fornecedorDAO.inserirFornecedor(new FornecedorDTO(null, "Fornecedor 1", "87996141639", null));
-        fornecedorDAO.inserirFornecedor(new FornecedorDTO(null, "Fornecedor 2", "87991020024", null));
 
     }
 }

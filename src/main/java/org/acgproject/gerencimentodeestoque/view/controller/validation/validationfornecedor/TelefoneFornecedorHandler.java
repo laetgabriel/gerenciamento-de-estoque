@@ -7,9 +7,9 @@ import org.acgproject.gerencimentodeestoque.view.controller.validation.Fornecedo
 public class TelefoneFornecedorHandler extends FornecedorHandler {
 
     @Override
-    public FornecedorDTO handle(FornecedorDTO fornecedorDTO){
-        if(fornecedorDTO.getTelefone() == null || fornecedorDTO.getTelefone().length()<11 || fornecedorDTO.getTelefone().isEmpty()){
-            throw new ValidacaoException("Erro ao inserir Telefone");
+    public FornecedorDTO handle(FornecedorDTO fornecedorDTO) throws ValidacaoException {
+        if(fornecedorDTO.getTelefone() == null || fornecedorDTO.getTelefone().length() != 11){
+            throw new ValidacaoException("Digite um telefone válido!");
         }else
           return super.handle(fornecedorDTO);
     }
