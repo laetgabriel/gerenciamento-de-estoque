@@ -7,7 +7,7 @@ import org.acgproject.gerencimentodeestoque.view.controller.validation.Fornecedo
 
 public class NomeFornecedorHandler extends FornecedorHandler {
     @Override
-    public FornecedorDTO handle(FornecedorDTO fornecedorDTO) throws ValidacaoException {
+    public FornecedorDTO handle(FornecedorDTO fornecedorDTO){
         if (fornecedorDTO == null || fornecedorDTO.getNome() == null || fornecedorDTO.getNome().isEmpty()) {
             throw new ValidacaoException("Digite um nome!");
         } else
