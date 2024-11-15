@@ -1,6 +1,6 @@
 package org.acgproject.gerencimentodeestoque.view.controller.exceptions;
 
-public class ValidacaoException extends Exception{
+public class ValidacaoException extends RuntimeException{
 
     public ValidacaoException(){
         super();
