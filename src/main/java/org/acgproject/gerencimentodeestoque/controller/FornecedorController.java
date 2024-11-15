@@ -1,32 +1,15 @@
 package org.acgproject.gerencimentodeestoque.controller;
 
+import org.acgproject.gerencimentodeestoque.dao.FornecedorDAO;
 import org.acgproject.gerencimentodeestoque.dao.impl.FornecedorDAOImpl;
 import org.acgproject.gerencimentodeestoque.dto.FornecedorDTO;
 
-import java.util.regex.Pattern;
+import java.util.List;
 
 public class FornecedorController {
 
-    private FornecedorDAOImpl fornecedorDAO;
-    private final Pattern emailPattern = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
+    private FornecedorDAO fornecedorDAO = new FornecedorDAOImpl();
 
-    public FornecedorController() {
-        this.fornecedorDAO = new FornecedorDAOImpl();
-    }
-
-    public boolean validarEmail(String email) {
-        return emailPattern.matcher(email).matches();
-    }
-
-    public boolean validarTelefone(String telefone) {
-        return telefone != null && telefone.length() == 11 && telefone.matches("\\d+");
-    }
-
-    public boolean validarNome(String nome) {
-        return nome != null && !nome.trim().isEmpty();
-    }
-
-    public void inserirFornecedor(FornecedorDTO fornecedorDTO) {
-        fornecedorDAO.inserirFornecedor(fornecedorDTO);
-    }
+    public FornecedorDTO consultarFornecedorPorNome(String nome){return fornecedorDAO.consultarFornecedorPorNome(nome);}
+    public List<FornecedorDTO> listarTodosOsFornecedores() { return fornecedorDAO.listarTodosOsFornecedores();}
 }

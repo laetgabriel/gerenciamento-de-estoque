@@ -71,7 +71,7 @@
             <Image url="@../icones/fornecedor.png" />
          </image>
       </ImageView>
-      <ComboBox fx:id="comboBoxFornecedor" layoutX="98.0" layoutY="335.0" onAction="#salvarProduto" prefHeight="30.0" prefWidth="192.0" promptText="Selecione o fornecedor" />
+      <ComboBox fx:id="comboBoxFornecedor" layoutX="98.0" layoutY="335.0" prefHeight="30.0" prefWidth="192.0" promptText="Selecione o fornecedor" />
       <Label layoutX="349.0" layoutY="305.0" text="Data">
          <font>
             <Font size="20.0" />
@@ -83,13 +83,13 @@
          </image>
       </ImageView>
       <DatePicker fx:id="data" layoutX="382.0" layoutY="333.0" prefHeight="32.0" prefWidth="192.0" promptText="Escolha a data de cadastro" />
-      <Button fx:id="btnSalvar" layoutX="133.0" layoutY="477.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="159.0" style="-fx-background-color: green;" text="Salvar" textFill="WHITE" />
-      <Button fx:id="btnCancelar" layoutX="348.0" layoutY="477.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="159.0" style="-fx-background-color: green;" text="Cancelar" textFill="WHITE" />
-      <Label fx:id="lblErroNome" layoutX="99.0" layoutY="196.0" prefHeight="17.0" prefWidth="192.0" text="Erro no nome" textFill="RED" />
-      <Label fx:id="lblErroQuantidade" layoutX="99.0" layoutY="282.0" prefHeight="17.0" prefWidth="192.0" text="Erro na quantidade" textFill="RED" />
-      <Label fx:id="lblErroFornecedor" layoutX="99.0" layoutY="366.0" prefHeight="17.0" prefWidth="192.0" text="Erro no fornecedor" textFill="RED" />
-      <Label fx:id="lblErroPreco" layoutX="386.0" layoutY="196.0" prefHeight="17.0" prefWidth="192.0" text="Erro no preço" textFill="RED" />
-      <Label fx:id="lblErroCategoria" layoutX="380.0" layoutY="282.0" prefHeight="17.0" prefWidth="192.0" text="Erro na categoria" textFill="RED" />
-      <Label fx:id="lblErroData" layoutX="382.0" layoutY="366.0" prefHeight="17.0" prefWidth="192.0" text="Erro na data" textFill="RED" />
+      <Button fx:id="btnSalvar" layoutX="133.0" layoutY="477.0" mnemonicParsing="false" onAction="#onBtnSalvar" prefHeight="32.0" prefWidth="159.0" style="-fx-background-color: green;" text="Salvar" textFill="WHITE" />
+      <Button fx:id="btnCancelar" layoutX="348.0" layoutY="477.0" mnemonicParsing="false" onAction="#onBtnCancelar" prefHeight="32.0" prefWidth="159.0" style="-fx-background-color: green;" text="Cancelar" textFill="WHITE" />
+      <Label fx:id="lblErroNome" layoutX="99.0" layoutY="196.0" prefHeight="17.0" prefWidth="192.0" textFill="RED" />
+      <Label fx:id="lblErroQuantidade" layoutX="99.0" layoutY="282.0" prefHeight="17.0" prefWidth="192.0" textFill="RED" />
+      <Label fx:id="lblErroFornecedor" layoutX="99.0" layoutY="366.0" prefHeight="17.0" prefWidth="192.0" textFill="RED" />
+      <Label fx:id="lblErroPreco" layoutX="386.0" layoutY="196.0" prefHeight="17.0" prefWidth="192.0" textFill="RED" />
+      <Label fx:id="lblErroCategoria" layoutX="380.0" layoutY="282.0" prefHeight="17.0" prefWidth="192.0" textFill="RED" />
+      <Label fx:id="lblErroData" layoutX="382.0" layoutY="366.0" prefHeight="17.0" prefWidth="192.0" textFill="RED" />
    </children>
 </AnchorPane>

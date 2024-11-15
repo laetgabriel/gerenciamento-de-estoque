@@ -1,6 +1,6 @@
 package org.acgproject.gerencimentodeestoque.view.controller.exceptions;
 
-public class ValidacaoException extends RuntimeException{
+public class ValidacaoException extends Exception {
 
     public ValidacaoException(){
         super();
@@ -9,5 +9,4 @@ public class ValidacaoException extends RuntimeException{
     public ValidacaoException(String mensagem){
         super(mensagem);
     }
-
 }

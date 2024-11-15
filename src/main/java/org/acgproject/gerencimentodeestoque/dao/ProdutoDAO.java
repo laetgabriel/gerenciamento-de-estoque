@@ -1,6 +1,5 @@
 package org.acgproject.gerencimentodeestoque.dao;
 
-import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
 import org.acgproject.gerencimentodeestoque.dto.ProdutoDTO;
 
 import java.util.List;

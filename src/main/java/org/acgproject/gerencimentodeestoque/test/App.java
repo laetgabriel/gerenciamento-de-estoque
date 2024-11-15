@@ -1,12 +1,16 @@
 package org.acgproject.gerencimentodeestoque.test;
 
 import org.acgproject.gerencimentodeestoque.dao.CategoriaDAO;
+import org.acgproject.gerencimentodeestoque.dao.FornecedorDAO;
 import org.acgproject.gerencimentodeestoque.dao.ProdutoDAO;
 import org.acgproject.gerencimentodeestoque.dao.impl.CategoriaDAOImpl;
+import org.acgproject.gerencimentodeestoque.dao.impl.FornecedorDAOImpl;
 import org.acgproject.gerencimentodeestoque.dao.impl.ProdutoDAOImpl;
 import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
+import org.acgproject.gerencimentodeestoque.dto.FornecedorDTO;
 import org.acgproject.gerencimentodeestoque.dto.ProdutoDTO;
 import org.acgproject.gerencimentodeestoque.model.entities.Categoria;
+import org.acgproject.gerencimentodeestoque.model.entities.Fornecedor;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -19,9 +23,14 @@ public class App {
         //categoriaDAO.inserirCategoria(new CategoriaDTO(null, "Categoria 1", null));
         //categoriaDAO.inserirCategoria(new CategoriaDTO(null, "Categoria 2", null));
 
-        CategoriaDTO categoriaDTO = categoriaDAO.buscarCategoria(1);
-        categoriaDTO.setDescricao("BLA BLA");
-        categoriaDAO.alterarCategoria(categoriaDTO);
+        //CategoriaDTO categoriaDTO = categoriaDAO.buscarCategoria(1);
+        //categoriaDTO.setDescricao("BLA BLA");
+        //categoriaDAO.alterarCategoria(categoriaDTO);
+
+        FornecedorDAO fornecedorDAO = new FornecedorDAOImpl();
+
+        //fornecedorDAO.inserirFornecedor(new FornecedorDTO(null, "Fornecedor 1", "87996141639", null));
+        fornecedorDAO.inserirFornecedor(new FornecedorDTO(null, "Fornecedor 2", "87991020024", null));
 
     }
 }

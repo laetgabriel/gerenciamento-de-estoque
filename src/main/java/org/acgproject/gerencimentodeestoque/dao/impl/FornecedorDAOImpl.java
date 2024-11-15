@@ -1,10 +1,13 @@
 package org.acgproject.gerencimentodeestoque.dao.impl;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import org.acgproject.gerencimentodeestoque.dao.FornecedorDAO;
 import org.acgproject.gerencimentodeestoque.db.DB;
 import org.acgproject.gerencimentodeestoque.dto.FornecedorDTO;
+import org.acgproject.gerencimentodeestoque.mapper.CategoriaMapper;
 import org.acgproject.gerencimentodeestoque.mapper.FornecedorMapper;
+import org.acgproject.gerencimentodeestoque.model.entities.Categoria;
 import org.acgproject.gerencimentodeestoque.model.entities.Fornecedor;
 
 import java.util.List;
@@ -51,9 +54,19 @@ public class FornecedorDAOImpl implements FornecedorDAO {
     }
 
     @Override
-    public List<FornecedorDTO> listarFornecedor() {
+    public FornecedorDTO consultarFornecedorPorNome(String nome) {
+        try (EntityManager entityManager = DB.getConexao()) {
+            TypedQuery<Fornecedor> query = entityManager.createQuery("from Fornecedor where nome = :nome", Fornecedor.class);
+            query.setParameter("nome", nome);
+
+            return FornecedorMapper.toDTO(query.getResultList().getFirst());
+        }
+    }
+
+    @Override
+    public List<FornecedorDTO> listarTodosOsFornecedores() {
         try(EntityManager em = DB.getConexao()){
-            List<Fornecedor> fornecedores = em.createQuery("from Fornecedor").getResultList();
+            List<Fornecedor> fornecedores = em.createQuery("from Fornecedor", Fornecedor.class).getResultList();
             return FornecedorMapper.toDTOList(fornecedores);
         }
     }

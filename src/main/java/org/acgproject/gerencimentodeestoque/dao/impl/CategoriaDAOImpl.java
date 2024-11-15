@@ -53,6 +53,16 @@ public class CategoriaDAOImpl implements CategoriaDAO {
     }
 
     @Override
+    public CategoriaDTO buscarCategoriaPorNome(String  nome) {
+        try (EntityManager entityManager = DB.getConexao()) {
+            TypedQuery<Categoria> query = entityManager.createQuery("from Categoria where nome = :nome", Categoria.class);
+            query.setParameter("nome", nome);
+
+            return CategoriaMapper.toDTO(query.getResultList().getFirst());
+        }
+    }
+
+    @Override
     public List<CategoriaDTO> listarCategorias() {
         try (EntityManager entityManager = DB.getConexao()) {
             List<Categoria> categorias = entityManager.createQuery("from Categoria", Categoria.class).getResultList();
