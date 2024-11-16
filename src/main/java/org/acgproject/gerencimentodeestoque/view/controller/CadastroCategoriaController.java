@@ -4,16 +4,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.acgproject.gerencimentodeestoque.controller.CategoriaController;
 import org.acgproject.gerencimentodeestoque.dao.CategoriaDAO;
 import org.acgproject.gerencimentodeestoque.dao.impl.CategoriaDAOImpl;
 import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
 import org.acgproject.gerencimentodeestoque.utils.Alertas;
 import org.acgproject.gerencimentodeestoque.view.controller.exceptions.ValidacaoException;
+import org.acgproject.gerencimentodeestoque.view.observer.CategoriaObserver;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class CadastroCategoriaController {
+public class CadastroCategoriaController implements Initializable {
 
     @FXML
     private TextField txtNome;
@@ -29,6 +33,7 @@ public class CadastroCategoriaController {
     private Label lblErroDescricaoCategoria;
 
     private final CategoriaDAO categoriaDAO = new CategoriaDAOImpl();
+    private List<CategoriaObserver> observers = new ArrayList<>();
 
     public void onBtnSalvar() {
         lblErroNomeCategoria.setText("");
@@ -45,6 +50,8 @@ public class CadastroCategoriaController {
             txtDescricao.clear();
             lblErroNomeCategoria.setText("");
             lblErroDescricaoCategoria.setText("");
+
+            notificarOuvintes();
 
             Alertas.mostrarAlerta("Sucesso", "Categoria salva com sucesso!", Alert.AlertType.INFORMATION);
             Stage palco = (Stage) btnSalvar.getScene().getWindow();
@@ -66,5 +73,20 @@ public class CadastroCategoriaController {
         if (categoriaDAO.nomeCategoriaExiste(nome)) {
             throw new ValidacaoException("Nome de categoria já existe");
         }
+    }
+
+    public void adicionarObserver(CategoriaObserver observer) {
+        observers.add(observer);
+    }
+
+    private void notificarOuvintes(){
+        for (CategoriaObserver observer : observers) {
+            observer.atualizarCategorias();
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }

@@ -40,7 +40,7 @@ public class MovimentacaoEstoqueController implements Initializable {
 
     @FXML
     public void onMenuItemCategoria(){
-        Viewer.loadViewCategoria("/org/acgproject/gerencimentodeestoque/view/Categoria.fxml");
+        Viewer.loadView("/org/acgproject/gerencimentodeestoque/view/Categoria.fxml");
     }
 
     @Override

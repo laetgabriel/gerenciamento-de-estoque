@@ -11,12 +11,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
 import org.acgproject.gerencimentodeestoque.model.entities.Categoria;
 import org.acgproject.gerencimentodeestoque.utils.Viewer;
+import org.acgproject.gerencimentodeestoque.view.observer.CategoriaObserver;
+import org.hibernate.annotations.View;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CategoriaController implements Initializable {
+public class CategoriaController implements Initializable, CategoriaObserver {
 
     private org.acgproject.gerencimentodeestoque.controller.CategoriaController categoriaController;
 
@@ -35,12 +37,6 @@ public class CategoriaController implements Initializable {
 
     private ObservableList<CategoriaDTO> categoriaObservableList;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        initializeNodes();
-    }
-
     private void initializeNodes(){
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -53,19 +49,24 @@ public class CategoriaController implements Initializable {
 
     @FXML
     private void btnNovaCategoria() {
-        Viewer.loadViewCadastro("/org/acgproject/gerencimentodeestoque/view/CadastroCategoria.fxml");
+        Viewer.loadViewCadastroCategoria("/org/acgproject/gerencimentodeestoque/view/CadastroCategoria.fxml", this);
     }
 
-    public void setCategoriaController(org.acgproject.gerencimentodeestoque.controller.CategoriaController categoriaController) {
-        this.categoriaController = categoriaController;
-    }
 
-    public void updateTableView(){
+    @Override
+    public void atualizarCategorias() {
         if(categoriaController == null){
             throw new IllegalStateException("categoriaController == null");
         }
         List<CategoriaDTO> categorias = categoriaController.listarCategorias();
         categoriaObservableList = FXCollections.observableArrayList(categorias);
         tblCategoria.setItems(categoriaObservableList);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        categoriaController = new org.acgproject.gerencimentodeestoque.controller.CategoriaController();
+        initializeNodes();
+        atualizarCategorias();
     }
 }
