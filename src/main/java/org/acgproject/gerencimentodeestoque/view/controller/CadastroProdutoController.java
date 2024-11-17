@@ -32,6 +32,9 @@ import java.util.*;
 public class CadastroProdutoController implements Initializable {
 
     @FXML
+    private Label titulo;
+
+    @FXML
     private TextField txtNome;
     @FXML
     private TextField txtPreco;
@@ -73,14 +76,32 @@ public class CadastroProdutoController implements Initializable {
         limpaLblErros();
         try{
             ProdutoDTO produtoDTO = getDados();
-            produtoController.inserirProduto(produtoDTO);
-            Alertas.mostrarAlerta("Sucesso", "Produto salvo com sucesso!", Alert.AlertType.INFORMATION);
+            ProdutoDTO produtoDTOAtualizar = produtoController.buscarProdutoPorNome(txtNome.getText());
+            if (produtoDTOAtualizar == null) {
+                produtoController.inserirProduto(produtoDTO);
+                Alertas.mostrarAlerta("Sucesso", "Produto salvo com sucesso!", Alert.AlertType.INFORMATION);
+            }else {
+                CategoriaDTO categoriaDTO =
+                        categoriaController.buscarCategoriaPorNome(comboBoxCategoria.getSelectionModel().getSelectedItem().toString());
+
+                FornecedorDTO fornecedorDTO =
+                        fornecedorController.consultarFornecedorPorNome(comboBoxFornecedor.getSelectionModel().getSelectedItem().toString());
+
+                produtoDTOAtualizar.setPreco(new BigDecimal(txtPreco.getText()));
+                produtoDTOAtualizar.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
+                produtoDTOAtualizar.setDataCadastro(data.getValue());
+                produtoDTOAtualizar.setFornecedor(fornecedorDTO);
+                produtoDTOAtualizar.setCategoria(categoriaDTO);
+                produtoController.alterarProduto(produtoDTOAtualizar);
+                Alertas.mostrarAlerta("Sucesso", "Produto modificado com sucesso!", Alert.AlertType.INFORMATION);
+            }
             notificarOuvintes();
             Stage palco = (Stage) btnSalvar.getScene().getWindow();
             palco.close();
         }catch (ValidacaoCadastrosException e){
             setLblErros(e.getErrors());
         }catch (RuntimeException e){
+            e.printStackTrace();
             Alertas.mostrarAlerta("ERRO", "Produto já cadastrado!", Alert.AlertType.ERROR);
         }
     }
@@ -89,6 +110,19 @@ public class CadastroProdutoController implements Initializable {
     public void onBtnCancelar() {
         Stage palco = (Stage) btnCancelar.getScene().getWindow();
         palco.close();
+    }
+
+    public void atualizarProduto(ProdutoDTO produtoDTO) {
+        titulo.setText("Atualizar Produto");
+         txtNome.setEditable(false);
+
+        txtNome.setText(produtoDTO.getNome());
+        txtPreco.setText(produtoDTO.getPreco().toString());
+        txtQuantidade.setText(String.valueOf(produtoDTO.getQuantidade()));
+        comboBoxCategoria.setValue(produtoDTO.getCategoria());
+        comboBoxFornecedor.setValue(produtoDTO.getFornecedor());
+        data.setValue(produtoDTO.getDataCadastro());
+
     }
 
     private ProdutoDTO getDados() throws ValidacaoCadastrosException {

@@ -10,13 +10,10 @@ public class ProdutoController {
 
     ProdutoDAO produtoDAO = new ProdutoDAOImpl();
 
-    public void inserirProduto(ProdutoDTO produtoDTO){
-
-        produtoDAO.inserirProduto(produtoDTO);
-
-    }
+    public void inserirProduto(ProdutoDTO produtoDTO){ produtoDAO.inserirProduto(produtoDTO);}
     public void alterarProduto(ProdutoDTO produtoDTO){ produtoDAO.alterarProduto(produtoDTO);}
     public void excluirProduto(Integer id) { produtoDAO.excluirProduto(id);}
     public ProdutoDTO buscarProduto(Integer id){return produtoDAO.buscarProduto(id);}
+    public ProdutoDTO buscarProdutoPorNome(String nome){return produtoDAO.buscarProdutoPorNome(nome);}
     public List<ProdutoDTO> listarProdutos(){return produtoDAO.listarProdutos();}
 }

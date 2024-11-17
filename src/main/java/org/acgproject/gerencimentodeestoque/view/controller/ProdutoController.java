@@ -14,7 +14,7 @@ import org.acgproject.gerencimentodeestoque.dto.ProdutoDTO;
 import org.acgproject.gerencimentodeestoque.utils.Alertas;
 import org.acgproject.gerencimentodeestoque.utils.Viewer;
 import org.acgproject.gerencimentodeestoque.view.observer.ProdutoObserver;
-import org.modelmapper.internal.bytebuddy.asm.Advice;
+
 
 import java.math.BigDecimal;
 import java.net.URL;
@@ -62,6 +62,7 @@ public class ProdutoController implements Initializable, ProdutoObserver {
     private TableColumn<ProdutoDTO, FornecedorDTO> colFornecedor;
 
     private ObservableList<ProdutoDTO> produtoDTOObservableList;
+    private ProdutoDTO produtoSelecionado;
 
     private final org.acgproject.gerencimentodeestoque.controller.ProdutoController produtoController = new org.acgproject.gerencimentodeestoque.controller.ProdutoController();
     private final org.acgproject.gerencimentodeestoque.controller.CategoriaController categoriaController = new CategoriaController();
@@ -71,7 +72,19 @@ public class ProdutoController implements Initializable, ProdutoObserver {
 
     @FXML
     public void onBtnNovo() {
-        Viewer.loadViewCadastro("/org/acgproject/gerencimentodeestoque/view/CadastroProduto.fxml");
+        Viewer.loadViewCadastroProduto("/org/acgproject/gerencimentodeestoque/view/CadastroProduto.fxml", this, null);
+    }
+
+    public void onBtnAtualizar() {
+
+        produtoSelecionado = tblProdutos.getSelectionModel().getSelectedItem();
+        if (produtoSelecionado != null) {
+            Viewer.loadViewCadastroProduto("/org/acgproject/gerencimentodeestoque/view/CadastroProduto.fxml", this,
+                    produtoSelecionado);
+        } else {
+            Alertas.mostrarAlerta("Erro", "Selecione um produto para atualizar!", Alert.AlertType.ERROR);
+        }
+
     }
 
     private void initializeNodes(){

@@ -10,6 +10,7 @@ public interface ProdutoDAO {
     void alterarProduto(ProdutoDTO produtoDTO);
     void excluirProduto(Integer id);
     ProdutoDTO buscarProduto(Integer id);
+    ProdutoDTO buscarProdutoPorNome(String nome);
     List<ProdutoDTO> listarProdutos();
 
 }
