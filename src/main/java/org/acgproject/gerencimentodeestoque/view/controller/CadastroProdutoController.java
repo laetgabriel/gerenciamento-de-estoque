@@ -20,15 +20,14 @@ import org.acgproject.gerencimentodeestoque.model.entities.Fornecedor;
 import org.acgproject.gerencimentodeestoque.utils.Alertas;
 import org.acgproject.gerencimentodeestoque.utils.Restricoes;
 import org.acgproject.gerencimentodeestoque.view.controller.exceptions.ValidacaoCadastrosException;
+import org.acgproject.gerencimentodeestoque.view.observer.CategoriaObserver;
+import org.acgproject.gerencimentodeestoque.view.observer.ProdutoObserver;
 
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 public class CadastroProdutoController implements Initializable {
 
@@ -67,6 +66,8 @@ public class CadastroProdutoController implements Initializable {
     private ObservableList<CategoriaDTO> categorias;
     private ObservableList<FornecedorDTO> fornecedores;
 
+    private List<ProdutoObserver> observers = new ArrayList<>();
+
     @FXML
     public void onBtnSalvar() {
         limpaLblErros();
@@ -74,6 +75,7 @@ public class CadastroProdutoController implements Initializable {
             ProdutoDTO produtoDTO = getDados();
             produtoController.inserirProduto(produtoDTO);
             Alertas.mostrarAlerta("Sucesso", "Produto salvo com sucesso!", Alert.AlertType.INFORMATION);
+            notificarOuvintes();
             Stage palco = (Stage) btnSalvar.getScene().getWindow();
             palco.close();
         }catch (ValidacaoCadastrosException e){
@@ -172,6 +174,16 @@ public class CadastroProdutoController implements Initializable {
         lblErroCategoria.setText("");
         lblErroFornecedor.setText("");
         lblErroData.setText("");
+    }
+
+    public void adicionarObserver(ProdutoObserver observer) {
+        observers.add(observer);
+    }
+
+    private void notificarOuvintes(){
+        for (ProdutoObserver observer : observers) {
+            observer.atualizarProdutos();
+        }
     }
 
     @Override
