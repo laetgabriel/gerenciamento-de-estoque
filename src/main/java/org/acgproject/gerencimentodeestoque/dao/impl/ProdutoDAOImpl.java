@@ -1,10 +1,14 @@
 package org.acgproject.gerencimentodeestoque.dao.impl;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import org.acgproject.gerencimentodeestoque.db.DB;
 import org.acgproject.gerencimentodeestoque.dao.ProdutoDAO;
+import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
 import org.acgproject.gerencimentodeestoque.dto.ProdutoDTO;
+import org.acgproject.gerencimentodeestoque.mapper.CategoriaMapper;
 import org.acgproject.gerencimentodeestoque.mapper.ProdutoMapper;
+import org.acgproject.gerencimentodeestoque.model.entities.Categoria;
 import org.acgproject.gerencimentodeestoque.model.entities.Produto;
 
 import java.util.List;
@@ -48,6 +52,24 @@ public class ProdutoDAOImpl implements ProdutoDAO{
             return ProdutoMapper.toDTO(produto);
         }
     }
+
+    @Override
+    public ProdutoDTO buscarProdutoPorNome(String nome) {
+        try (EntityManager entityManager = DB.getConexao()) {
+            TypedQuery<Produto> query = entityManager.createQuery(
+                    "from Produto where nome = :nome", Produto.class);
+            query.setParameter("nome", nome);
+
+            List<Produto> resultados = query.getResultList();
+
+            if (resultados.isEmpty()) {
+                return null;
+            }
+
+            return ProdutoMapper.toDTO(resultados.get(0));
+        }
+    }
+
 
     @Override
     public List<ProdutoDTO> listarProdutos() {
