@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
 import org.acgproject.gerencimentodeestoque.model.entities.Categoria;
@@ -18,6 +15,7 @@ import org.hibernate.annotations.View;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CategoriaController implements Initializable, CategoriaObserver {
@@ -39,7 +37,7 @@ public class CategoriaController implements Initializable, CategoriaObserver {
 
     private ObservableList<CategoriaDTO> categoriaObservableList;
 
-    private void initializeNodes(){
+    private void initializeNodes() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
@@ -54,19 +52,31 @@ public class CategoriaController implements Initializable, CategoriaObserver {
         Viewer.loadViewCadastroCategoria("/org/acgproject/gerencimentodeestoque/view/CadastroCategoria.fxml", this);
     }
 
+    public void btnExcluirCategoria() {
+        CategoriaDTO categoriaDTO = tblCategoria.getSelectionModel().getSelectedItem();
+        if(categoriaDTO != null) {
+            Optional<ButtonType> escolha = Alertas.showConfirmation("Confirmação", "Tem certeza que quer deletar essa " +
+                    "categoria?");
 
+            if (escolha.get() == ButtonType.OK) {
+                categoriaController.excluirCategoria(categoriaDTO.getId());
+                atualizarCategorias();
+            }
+        }else
+            Alertas.mostrarAlerta("Erro", "Selecione uma categoria para excluir", Alert.AlertType.ERROR);
+    }
 
     public void btnAtualizarCategoria() {
         CategoriaDTO categoria = tblCategoria.getSelectionModel().getSelectedItem();
-        if(categoria != null){
+        if (categoria != null) {
             Viewer.loadViewDetalharCategoria("/org/acgproject/gerencimentodeestoque/view/CadastroCategoria.fxml", this, categoria);
-        }else
+        } else
             Alertas.mostrarAlerta("Erro", "Selecione uma categoria para atualizar", Alert.AlertType.ERROR);
     }
 
     @Override
     public void atualizarCategorias() {
-        if(categoriaController == null){
+        if (categoriaController == null) {
             throw new IllegalStateException("categoriaController == null");
         }
         List<CategoriaDTO> categorias = categoriaController.listarCategorias();
