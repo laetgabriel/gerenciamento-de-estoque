@@ -54,6 +54,8 @@ public class CategoriaController implements Initializable, CategoriaObserver {
         Viewer.loadViewCadastroCategoria("/org/acgproject/gerencimentodeestoque/view/CadastroCategoria.fxml", this);
     }
 
+
+
     public void btnAtualizarCategoria() {
         CategoriaDTO categoria = tblCategoria.getSelectionModel().getSelectedItem();
         if(categoria != null){

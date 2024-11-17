@@ -9,11 +9,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
 import org.acgproject.gerencimentodeestoque.dto.ProdutoDTO;
 import org.acgproject.gerencimentodeestoque.view.App;
 import org.acgproject.gerencimentodeestoque.view.controller.CadastroCategoriaController;
 import org.acgproject.gerencimentodeestoque.view.controller.CadastroProdutoController;
-import org.acgproject.gerencimentodeestoque.view.controller.CategoriaController;
 import org.acgproject.gerencimentodeestoque.view.controller.ProdutoController;
 import org.acgproject.gerencimentodeestoque.view.observer.CategoriaObserver;
 
@@ -81,6 +81,32 @@ public class Viewer {
 
             }
         });
+    }
+
+    public static void loadViewDetalharCategoria(String caminho, CategoriaObserver categoriaObserver, CategoriaDTO categoriaDTO) {
+        try {
+            Stage mainStage = App.getMainStage();
+            Stage newStage = new Stage();
+
+            FXMLLoader loader = new FXMLLoader(Viewer.class.getResource(caminho));
+            Parent novaTela = loader.load();
+
+            CadastroCategoriaController cadastroCategoriaController = loader.getController();
+            cadastroCategoriaController.adicionarObserver(categoriaObserver);
+
+            cadastroCategoriaController.setCategoria(categoriaDTO);
+
+            Scene cenaTela = new Scene(novaTela);
+            newStage.setResizable(false);
+            newStage.setTitle("Gerenciamento Estoque");
+            newStage.setScene(cenaTela);
+            newStage.initOwner(mainStage);
+            newStage.initModality(Modality.WINDOW_MODAL);
+            newStage.showAndWait();
+
+        } catch (IOException e) {
+            Alertas.mostrarAlerta("Erro", "Não foi possível carregar a tela.", Alert.AlertType.ERROR);
+        }
     }
 
     public static void loadViewCadastroProduto(String caminho, ProdutoController produtoController, ProdutoDTO produtoDTO) {
