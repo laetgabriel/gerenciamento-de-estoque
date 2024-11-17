@@ -19,6 +19,9 @@ import java.util.ResourceBundle;
 
 public class CadastroCategoriaController implements Initializable {
 
+    @FXML
+    private Label titulo;
+
     private CategoriaDTO categoriaAtual;
     @FXML
     private TextField txtNome;
@@ -98,6 +101,7 @@ public class CadastroCategoriaController implements Initializable {
     }
 
     public void setCategoria(CategoriaDTO categoria) {
+        titulo.setText("Atualizar Categoria");
         this.categoriaAtual = categoria;
         if (categoria != null) {
             txtNome.setText(categoria.getNome());

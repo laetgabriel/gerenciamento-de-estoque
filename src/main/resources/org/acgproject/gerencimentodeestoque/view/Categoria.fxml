@@ -13,7 +13,7 @@
         <AnchorPane prefHeight="582.0" prefWidth="884.0">
             <children>
 
-                            <Label alignment="CENTER" contentDisplay="CENTER" text="Categorias" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
+                            <Label fx:id="titulo" alignment="CENTER" contentDisplay="CENTER" text="Categorias" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
                     <font>
                         <Font name="System Bold" size="40.0" />
                     </font>

@@ -49,7 +49,7 @@ public class CategoriaController implements Initializable, CategoriaObserver {
 
     @FXML
     private void btnNovaCategoria() {
-        Viewer.loadViewCadastroCategoria("/org/acgproject/gerencimentodeestoque/view/CadastroCategoria.fxml", this);
+        Viewer.loadViewCadastroCategoria("/org/acgproject/gerencimentodeestoque/view/CadastroCategoria.fxml", this, null);
     }
 
     public void btnExcluirCategoria() {
@@ -69,7 +69,7 @@ public class CategoriaController implements Initializable, CategoriaObserver {
     public void btnAtualizarCategoria() {
         CategoriaDTO categoria = tblCategoria.getSelectionModel().getSelectedItem();
         if (categoria != null) {
-            Viewer.loadViewDetalharCategoria("/org/acgproject/gerencimentodeestoque/view/CadastroCategoria.fxml", this, categoria);
+            Viewer.loadViewCadastroCategoria("/org/acgproject/gerencimentodeestoque/view/CadastroCategoria.fxml", this, categoria);
         } else
             Alertas.mostrarAlerta("Erro", "Selecione uma categoria para atualizar", Alert.AlertType.ERROR);
     }

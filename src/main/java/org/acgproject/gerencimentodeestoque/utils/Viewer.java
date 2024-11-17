@@ -74,39 +74,15 @@ public class Viewer {
     }
 
 
-    public static void loadViewCadastroCategoria(String caminho, CategoriaObserver categoriaObserver) {
+    public static void loadViewCadastroCategoria(String caminho, CategoriaObserver categoriaObserver, CategoriaDTO categoriaDTO) {
         Viewer.loadView(caminho, controller -> {
             if (controller instanceof CadastroCategoriaController cadastroCategoriaController) {
                 cadastroCategoriaController.adicionarObserver(categoriaObserver);
-
+                if (categoriaDTO != null) {
+                    cadastroCategoriaController.setCategoria(categoriaDTO);
+                }
             }
         });
-    }
-
-    public static void loadViewDetalharCategoria(String caminho, CategoriaObserver categoriaObserver, CategoriaDTO categoriaDTO) {
-        try {
-            Stage mainStage = App.getMainStage();
-            Stage newStage = new Stage();
-
-            FXMLLoader loader = new FXMLLoader(Viewer.class.getResource(caminho));
-            Parent novaTela = loader.load();
-
-            CadastroCategoriaController cadastroCategoriaController = loader.getController();
-            cadastroCategoriaController.adicionarObserver(categoriaObserver);
-
-            cadastroCategoriaController.setCategoria(categoriaDTO);
-
-            Scene cenaTela = new Scene(novaTela);
-            newStage.setResizable(false);
-            newStage.setTitle("Gerenciamento Estoque");
-            newStage.setScene(cenaTela);
-            newStage.initOwner(mainStage);
-            newStage.initModality(Modality.WINDOW_MODAL);
-            newStage.showAndWait();
-
-        } catch (IOException e) {
-            Alertas.mostrarAlerta("Erro", "Não foi possível carregar a tela.", Alert.AlertType.ERROR);
-        }
     }
 
     public static void loadViewCadastroProduto(String caminho, ProdutoController produtoController, ProdutoDTO produtoDTO) {

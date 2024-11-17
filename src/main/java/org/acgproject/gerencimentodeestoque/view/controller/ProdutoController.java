@@ -12,6 +12,7 @@ import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
 import org.acgproject.gerencimentodeestoque.dto.FornecedorDTO;
 import org.acgproject.gerencimentodeestoque.dto.ProdutoDTO;
 import org.acgproject.gerencimentodeestoque.utils.Alertas;
+import org.acgproject.gerencimentodeestoque.utils.AtualizarVisaoTabelas;
 import org.acgproject.gerencimentodeestoque.utils.Viewer;
 import org.acgproject.gerencimentodeestoque.view.observer.ProdutoObserver;
 
@@ -40,6 +41,9 @@ public class ProdutoController implements Initializable, ProdutoObserver {
 
     @FXML
     private ComboBox comboBoxFornecedor;
+
+    @FXML
+    private TextField txtNomeProduto;
 
     @FXML
     private ComboBox comboBoxCategoria;
@@ -123,6 +127,27 @@ public class ProdutoController implements Initializable, ProdutoObserver {
         tblProdutos.setItems(produtoDTOObservableList);
     }
 
+    @FXML
+    public void onComboBoxFiltroChanged() {
+        String filtroFornecedor = comboBoxFornecedor.getValue() != null
+                ? comboBoxFornecedor.getValue().toString()
+                : "";
+        String filtroCategoria = comboBoxCategoria.getValue() != null
+                ? comboBoxCategoria.getValue().toString()
+                : "";
+
+        String filtroNomeProduto = txtNomeProduto.getText() != null
+                ? txtNomeProduto.getText()
+                : "";
+
+        tabelaFiltrada(filtroFornecedor, filtroNomeProduto, filtroCategoria);
+    }
+
+    private void tabelaFiltrada(String filtroFornecedor, String filtroNomeProduto, String filtroCategoria) {
+        AtualizarVisaoTabelas.tabelaFiltradaProduto(filtroFornecedor, filtroNomeProduto, filtroCategoria,
+                produtoDTOObservableList, tblProdutos);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeNodes();
@@ -130,6 +155,7 @@ public class ProdutoController implements Initializable, ProdutoObserver {
         List<CategoriaDTO> listaCategoria = categoriaController.listarCategorias();
         categorias = FXCollections.observableArrayList(listaCategoria);
         comboBoxCategoria.setItems(categorias);
+
 
         List<FornecedorDTO> listaFornecedores = fornecedorController.listarTodosOsFornecedores();
         fornecedores = FXCollections.observableArrayList(listaFornecedores);
