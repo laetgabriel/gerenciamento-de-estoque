@@ -47,7 +47,8 @@ public class Viewer {
             FXMLLoader loader = new FXMLLoader(Viewer.class.getResource(caminho));
             Parent novaTela = loader.load();
 
-
+            CadastroCategoriaController cadastroCategoriaController = loader.getController();
+            cadastroCategoriaController.adicionarObserver(categoriaObserver);
 
             Scene cenaTela = new Scene(novaTela);
             newStage.setResizable(false);
