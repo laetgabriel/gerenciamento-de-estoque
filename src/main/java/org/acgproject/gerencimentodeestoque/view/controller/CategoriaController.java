@@ -4,12 +4,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
 import org.acgproject.gerencimentodeestoque.model.entities.Categoria;
+import org.acgproject.gerencimentodeestoque.utils.Alertas;
 import org.acgproject.gerencimentodeestoque.utils.Viewer;
 import org.acgproject.gerencimentodeestoque.view.observer.CategoriaObserver;
 import org.hibernate.annotations.View;
@@ -52,6 +54,13 @@ public class CategoriaController implements Initializable, CategoriaObserver {
         Viewer.loadViewCadastroCategoria("/org/acgproject/gerencimentodeestoque/view/CadastroCategoria.fxml", this);
     }
 
+    public void btnAtualizarCategoria() {
+        CategoriaDTO categoria = tblCategoria.getSelectionModel().getSelectedItem();
+        if(categoria != null){
+            Viewer.loadViewDetalharCategoria("/org/acgproject/gerencimentodeestoque/view/CadastroCategoria.fxml", this, categoria);
+        }else
+            Alertas.mostrarAlerta("Erro", "Selecione uma categoria para atualizar", Alert.AlertType.ERROR);
+    }
 
     @Override
     public void atualizarCategorias() {

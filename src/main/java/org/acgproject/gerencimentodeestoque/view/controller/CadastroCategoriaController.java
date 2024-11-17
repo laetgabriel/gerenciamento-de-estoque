@@ -85,6 +85,11 @@ public class CadastroCategoriaController implements Initializable {
         }
     }
 
+    public void setCategoria(CategoriaDTO categoria) {
+        txtNome.setText(categoria.getNome());
+        txtDescricao.setText(categoria.getDescricao());
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
