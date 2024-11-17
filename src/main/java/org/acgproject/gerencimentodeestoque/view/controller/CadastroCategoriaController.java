@@ -19,6 +19,7 @@ import java.util.ResourceBundle;
 
 public class CadastroCategoriaController implements Initializable {
 
+    private CategoriaDTO categoriaAtual;
     @FXML
     private TextField txtNome;
     @FXML
@@ -38,28 +39,36 @@ public class CadastroCategoriaController implements Initializable {
     public void onBtnSalvar() {
         lblErroNomeCategoria.setText("");
         lblErroDescricaoCategoria.setText("");
+
         String nome = txtNome.getText();
         String descricao = txtDescricao.getText();
 
         try {
             validarCategoria(nome);
-            CategoriaDTO categoriaDTO = new CategoriaDTO(null, nome, descricao);
-            categoriaDAO.inserirCategoria(categoriaDTO);
+            if (categoriaAtual == null) {
+                CategoriaDTO novaCategoria = new CategoriaDTO(null, nome, descricao);
+
+                categoriaDAO.inserirCategoria(novaCategoria);
+                Alertas.mostrarAlerta("Sucesso", "Categoria salva com sucesso!", Alert.AlertType.INFORMATION);
+            } else {
+                categoriaAtual.setNome(nome);
+                categoriaAtual.setDescricao(descricao);
+                categoriaDAO.alterarCategoria(categoriaAtual);
+                Alertas.mostrarAlerta("Sucesso", "Categoria atualizada com sucesso!", Alert.AlertType.INFORMATION);
+            }
 
             txtNome.clear();
             txtDescricao.clear();
-            lblErroNomeCategoria.setText("");
-            lblErroDescricaoCategoria.setText("");
-
+            categoriaAtual = null;
             notificarOuvintes();
 
-            Alertas.mostrarAlerta("Sucesso", "Categoria salva com sucesso!", Alert.AlertType.INFORMATION);
             Stage palco = (Stage) btnSalvar.getScene().getWindow();
             palco.close();
         } catch (ValidacaoException e) {
             lblErroNomeCategoria.setText(e.getMessage());
         }
     }
+
 
     public void onBtnCancelar() {
         Stage palco = (Stage) btnCancelar.getScene().getWindow();
@@ -70,10 +79,13 @@ public class CadastroCategoriaController implements Initializable {
         if (nome == null || nome.isEmpty() || nome.length() >= 255) {
             throw new ValidacaoException("Nome inválido");
         }
-        if (categoriaDAO.nomeCategoriaExiste(nome)) {
-            throw new ValidacaoException("Nome de categoria já existe");
+        if (categoriaAtual == null || !categoriaAtual.getNome().equals(nome)) {
+            if (categoriaDAO.nomeCategoriaExiste(nome)) {
+                throw new ValidacaoException("Nome de categoria já existe");
+            }
         }
     }
+
 
     public void adicionarObserver(CategoriaObserver observer) {
         observers.add(observer);
@@ -86,9 +98,13 @@ public class CadastroCategoriaController implements Initializable {
     }
 
     public void setCategoria(CategoriaDTO categoria) {
-        txtNome.setText(categoria.getNome());
-        txtDescricao.setText(categoria.getDescricao());
+        this.categoriaAtual = categoria;
+        if (categoria != null) {
+            txtNome.setText(categoria.getNome());
+            txtDescricao.setText(categoria.getDescricao());
+        }
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
