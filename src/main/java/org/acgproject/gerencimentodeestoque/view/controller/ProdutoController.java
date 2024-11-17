@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ProdutoController implements Initializable, ProdutoObserver {
@@ -85,6 +86,20 @@ public class ProdutoController implements Initializable, ProdutoObserver {
             Alertas.mostrarAlerta("Erro", "Selecione um produto para atualizar!", Alert.AlertType.ERROR);
         }
 
+    }
+
+    public void onBtnExcluir() {
+        produtoSelecionado = tblProdutos.getSelectionModel().getSelectedItem();
+        if (produtoSelecionado != null) {
+            Optional<ButtonType> escolha = Alertas.showConfirmation("Confirmação", "Tem certeza de que deseja excluir" +
+                    " o produto " + produtoSelecionado.getNome() + " ?");
+            if (escolha.get() == ButtonType.OK) {
+                produtoController.excluirProduto(produtoSelecionado.getId());
+                atualizarProdutos();
+            }
+        } else {
+            Alertas.mostrarAlerta("Erro", "Selecione um produto para excluir!", Alert.AlertType.ERROR);
+        }
     }
 
     private void initializeNodes(){

@@ -31,7 +31,7 @@
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnExcluir" alignment="CENTER" contentDisplay="CENTER" layoutX="273.0" layoutY="113.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: #FF4500;" text="Excluir" textFill="WHITE" AnchorPane.leftAnchor="273.0" AnchorPane.topAnchor="113.0">
+                <Button fx:id="btnExcluir" alignment="CENTER" contentDisplay="CENTER" layoutX="273.0" layoutY="113.0" mnemonicParsing="false" onAction="#onBtnExcluir" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: #FF4500;" text="Excluir" textFill="WHITE" AnchorPane.leftAnchor="273.0" AnchorPane.topAnchor="113.0">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
