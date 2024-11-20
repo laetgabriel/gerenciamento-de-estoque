@@ -1,6 +1,7 @@
 package org.acgproject.gerencimentodeestoque.dao.impl;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.acgproject.gerencimentodeestoque.db.DB;
 import org.acgproject.gerencimentodeestoque.dao.ProdutoDAO;
@@ -78,4 +79,28 @@ public class ProdutoDAOImpl implements ProdutoDAO{
             return ProdutoMapper.toDTOList(produtos);
         }
     }
+
+    public List<String> listarCategorias() {
+        try (EntityManager em = DB.getConexao()){
+            Query query = em.createNativeQuery(
+                    "SELECT DISTINCT c.nome " +
+                            "FROM gerenciamentoestoque.produto p " +
+                            "INNER JOIN gerenciamentoestoque.categoria c ON p.id_categoria = c.id"
+            );
+            return query.getResultList();
+        }
+    }
+
+    @Override
+    public List<String> listarFornecedores() {
+        try (EntityManager em = DB.getConexao()){
+            Query query = em.createNativeQuery(
+                    "SELECT DISTINCT f.nome " +
+                            "FROM gerenciamentoestoque.produto p " +
+                            "INNER JOIN gerenciamentoestoque.fornecedor f ON p.id_fornecedor = f.id"
+            );
+            return query.getResultList();
+        }
+    }
+
 }

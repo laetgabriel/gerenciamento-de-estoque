@@ -70,10 +70,8 @@ public class ProdutoController implements Initializable, ProdutoObserver {
     private ProdutoDTO produtoSelecionado;
 
     private final org.acgproject.gerencimentodeestoque.controller.ProdutoController produtoController = new org.acgproject.gerencimentodeestoque.controller.ProdutoController();
-    private final org.acgproject.gerencimentodeestoque.controller.CategoriaController categoriaController = new CategoriaController();
-    private final org.acgproject.gerencimentodeestoque.controller.FornecedorController fornecedorController = new FornecedorController();
-    private ObservableList<CategoriaDTO> categorias;
-    private ObservableList<FornecedorDTO> fornecedores;
+    private ObservableList<String> categorias;
+    private ObservableList<String> fornecedores;
 
     @FXML
     public void onBtnNovo() {
@@ -152,14 +150,28 @@ public class ProdutoController implements Initializable, ProdutoObserver {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeNodes();
         atualizarProdutos();
-        List<CategoriaDTO> listaCategoria = categoriaController.listarCategorias();
+        List<String> listaCategoria = produtoController.listarCategorias();
         categorias = FXCollections.observableArrayList(listaCategoria);
+        categorias.add("Sem categoria");
         comboBoxCategoria.setItems(categorias);
 
 
-        List<FornecedorDTO> listaFornecedores = fornecedorController.listarTodosOsFornecedores();
+        List<String> listaFornecedores = produtoController.listarFornecedores();
         fornecedores = FXCollections.observableArrayList(listaFornecedores);
+        fornecedores.add("Sem fornecedor");
         comboBoxFornecedor.setItems(fornecedores);
+
+        txtNomeProduto.textProperty().addListener((observable, oldValue, newValue) -> {
+            String filtroFornecedor = comboBoxFornecedor.getValue() != null
+                    ? comboBoxFornecedor.getValue().toString()
+                    : "";
+            String filtroCategoria = comboBoxCategoria.getValue() != null
+                    ? comboBoxCategoria.getValue().toString()
+                    : "";
+
+            tabelaFiltrada(filtroFornecedor, newValue, filtroCategoria);
+        });
+
     }
 
 }

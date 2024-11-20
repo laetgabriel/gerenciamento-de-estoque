@@ -29,7 +29,7 @@ public class AtualizarVisaoTabelas {
     }
 
     public static boolean filtroPorFornecedor(ProdutoDTO produtoDTO, String filtroFornecedor) {
-        if (produtoDTO.getFornecedor().getNome().equalsIgnoreCase(filtroFornecedor)) {
+        if (produtoDTO.getFornecedor().getNome().equalsIgnoreCase(filtroFornecedor) || filtroFornecedor.equalsIgnoreCase("Sem fornecedor")) {
             return true;
         }
 
@@ -37,16 +37,16 @@ public class AtualizarVisaoTabelas {
     }
 
     public static boolean filtroNomeProduto(ProdutoDTO produtoDTO, String filtroNomeProduto) {
-        if(produtoDTO.getNome().contains(filtroNomeProduto)) {
+        if(produtoDTO.getNome().toLowerCase().contains(filtroNomeProduto.toLowerCase()))
             return true;
-        }
+
         return false;
     }
 
     public static boolean filtroPorCategoria(ProdutoDTO produtoDTO, String filtroCategoria) {
-        if(produtoDTO.getCategoria().getNome().equalsIgnoreCase(filtroCategoria)) {
+        if(produtoDTO.getCategoria().getNome().equalsIgnoreCase(filtroCategoria) || filtroCategoria.equalsIgnoreCase("Sem categoria"))
             return true;
-        }
+
         return false;
     }
 }

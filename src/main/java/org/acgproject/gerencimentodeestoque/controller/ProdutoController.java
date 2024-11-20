@@ -16,4 +16,7 @@ public class ProdutoController {
     public ProdutoDTO buscarProduto(Integer id){return produtoDAO.buscarProduto(id);}
     public ProdutoDTO buscarProdutoPorNome(String nome){return produtoDAO.buscarProdutoPorNome(nome);}
     public List<ProdutoDTO> listarProdutos(){return produtoDAO.listarProdutos();}
+    public List<String> listarCategorias(){return produtoDAO.listarCategorias();}
+    public List<String> listarFornecedores(){return produtoDAO.listarFornecedores();}
+
 }

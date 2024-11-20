@@ -12,5 +12,7 @@ public interface ProdutoDAO {
     ProdutoDTO buscarProduto(Integer id);
     ProdutoDTO buscarProdutoPorNome(String nome);
     List<ProdutoDTO> listarProdutos();
+    List<String> listarCategorias();
+    List<String> listarFornecedores();
 
 }
