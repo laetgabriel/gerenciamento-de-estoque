@@ -1,12 +1,14 @@
 package org.acgproject.gerencimentodeestoque.dao.impl;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
 import org.acgproject.gerencimentodeestoque.db.DB;
 import org.acgproject.gerencimentodeestoque.dao.CategoriaDAO;
 import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
 import org.acgproject.gerencimentodeestoque.mapper.CategoriaMapper;
 import org.acgproject.gerencimentodeestoque.model.entities.Categoria;
+import org.hibernate.exception.ConstraintViolationException;
 
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
     }
 
     @Override
-    public void excluirCategoria(Integer id) {
+    public void excluirCategoria(Integer id) throws PersistenceException {
         try (EntityManager entityManager = DB.getConexao()) {
             entityManager.getTransaction().begin();
             Categoria categoria = entityManager.find(Categoria.class, id);
@@ -41,6 +43,8 @@ public class CategoriaDAOImpl implements CategoriaDAO {
                 entityManager.remove(categoria);
             }
             entityManager.getTransaction().commit();
+        } catch (PersistenceException e) {
+            throw new PersistenceException(e);
         }
     }
 

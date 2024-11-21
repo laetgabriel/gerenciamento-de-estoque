@@ -10,11 +10,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
+import org.acgproject.gerencimentodeestoque.dto.FornecedorDTO;
 import org.acgproject.gerencimentodeestoque.dto.ProdutoDTO;
 import org.acgproject.gerencimentodeestoque.view.App;
-import org.acgproject.gerencimentodeestoque.view.controller.CadastroCategoriaController;
-import org.acgproject.gerencimentodeestoque.view.controller.CadastroProdutoController;
-import org.acgproject.gerencimentodeestoque.view.controller.ProdutoController;
+import org.acgproject.gerencimentodeestoque.view.controller.*;
 import org.acgproject.gerencimentodeestoque.view.observer.CategoriaObserver;
 
 import java.io.IOException;
@@ -91,6 +90,18 @@ public class Viewer {
                 cadastroProdutoController.adicionarObserver(produtoController);
                 if (produtoDTO !=null) {
                     cadastroProdutoController.atualizarProduto(produtoDTO);
+                }
+            }
+
+        });
+    }
+
+    public static void loadViewCadastroFornecedor(String caminho, FornecedorController fornecedorController, FornecedorDTO fornecedorDTO) {
+        Viewer.loadView(caminho, controller -> {
+            if (controller instanceof CadastroFornecedorController cadastroFornecedorController) {
+                cadastroFornecedorController.adicionarObserver(fornecedorController);
+                if (fornecedorDTO !=null) {
+                    cadastroFornecedorController.atualizarFornecedor(fornecedorDTO);
                 }
             }
 

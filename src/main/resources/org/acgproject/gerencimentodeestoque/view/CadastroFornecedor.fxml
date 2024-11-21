@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.acgproject.gerencimentodeestoque.view.controller.CadastroFornecedorController">
    <children>
-      <Label layoutX="165.0" layoutY="14.0" text="Cadastro Fornecedor">
+      <Label fx:id="titulo" layoutX="165.0" layoutY="14.0" text="Cadastro Fornecedor">
          <font>
             <Font name="System Bold" size="35.0" />
          </font>

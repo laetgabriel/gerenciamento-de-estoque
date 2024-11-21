@@ -9,7 +9,7 @@ public class EmailFornecedorHandler extends FornecedorHandler {
 
     @Override
     public FornecedorDTO handle(FornecedorDTO fornecedorDTO) {
-        if (!fornecedorDTO.getEmail().matches(EMAIL_REGEX) || fornecedorDTO.getEmail().isEmpty() || fornecedorDTO.getEmail() == null) {
+        if (fornecedorDTO.getEmail() != null && !fornecedorDTO.getEmail().matches(EMAIL_REGEX) && !fornecedorDTO.getEmail().isEmpty()) {
             throw new ValidacaoException("Digite um email válido!");
         }
         return super.handle(fornecedorDTO);

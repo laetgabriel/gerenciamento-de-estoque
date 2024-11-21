@@ -1,5 +1,6 @@
 package org.acgproject.gerencimentodeestoque.view.controller;
 
+import jakarta.persistence.PersistenceException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -41,10 +42,6 @@ public class CategoriaController implements Initializable, CategoriaObserver {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-
-        colId.setStyle("-fx-alignment: CENTER;");
-        colNome.setStyle("-fx-alignment: CENTER;");
-        colDescricao.setStyle("-fx-alignment: CENTER;");
     }
 
     @FXML
@@ -54,16 +51,21 @@ public class CategoriaController implements Initializable, CategoriaObserver {
 
     public void btnExcluirCategoria() {
         CategoriaDTO categoriaDTO = tblCategoria.getSelectionModel().getSelectedItem();
-        if(categoriaDTO != null) {
-            Optional<ButtonType> escolha = Alertas.showConfirmation("Confirmação", "Tem certeza que quer deletar essa " +
-                    "categoria?");
+        try {
 
-            if (escolha.get() == ButtonType.OK) {
-                categoriaController.excluirCategoria(categoriaDTO.getId());
-                atualizarCategorias();
-            }
-        }else
-            Alertas.mostrarAlerta("Erro", "Selecione uma categoria para excluir", Alert.AlertType.ERROR);
+            if (categoriaDTO != null) {
+                Optional<ButtonType> escolha = Alertas.showConfirmation("Confirmação", "Tem certeza de que deseja excluir" +
+                        " a categoria " + categoriaDTO.getNome() + " ?");
+
+                if (escolha.get() == ButtonType.OK) {
+                    categoriaController.excluirCategoria(categoriaDTO.getId());
+                    atualizarCategorias();
+                }
+            } else
+                Alertas.mostrarAlerta("Erro", "Selecione uma categoria para excluir", Alert.AlertType.ERROR);
+        } catch (PersistenceException e) {
+            Alertas.mostrarAlerta("Erro ao excluir", "Categoria relacionada com produto!", Alert.AlertType.ERROR);
+        }
     }
 
     public void btnAtualizarCategoria() {

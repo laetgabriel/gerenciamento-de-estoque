@@ -1,5 +1,6 @@
 package org.acgproject.gerencimentodeestoque.view.controller;
 
+import jakarta.persistence.PersistenceException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -9,16 +10,27 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.acgproject.gerencimentodeestoque.controller.FornecedorController;
 import org.acgproject.gerencimentodeestoque.dto.FornecedorDTO;
+import org.acgproject.gerencimentodeestoque.dto.ProdutoDTO;
 import org.acgproject.gerencimentodeestoque.utils.Alertas;
 import org.acgproject.gerencimentodeestoque.utils.Restricoes;
 import org.acgproject.gerencimentodeestoque.utils.Viewer;
 import org.acgproject.gerencimentodeestoque.view.controller.exceptions.ValidacaoException;
 import org.acgproject.gerencimentodeestoque.view.controller.validation.validationfornecedor.FornecedorValidator;
+import org.acgproject.gerencimentodeestoque.view.observer.FornecedorObserver;
+import org.acgproject.gerencimentodeestoque.view.observer.ProdutoObserver;
 
 import java.net.URL;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class CadastroFornecedorController implements Initializable {
+
+    private FornecedorDTO fornecedorAtualizar = null;
+
+    @FXML
+    private Label titulo;
 
     @FXML
     private TextField txtNome;
@@ -47,6 +59,8 @@ public class CadastroFornecedorController implements Initializable {
     private org.acgproject.gerencimentodeestoque.controller.FornecedorController fornecedorController = new FornecedorController();
     private FornecedorValidator fornecedorValidator = new FornecedorValidator();
 
+    private List<FornecedorObserver> observers = new ArrayList<>();
+
     @FXML
     public void salvarFornecedor() {
         lblErroNome.setText("");
@@ -61,6 +75,10 @@ public class CadastroFornecedorController implements Initializable {
         String telefoneFornecedor = txtTelefone.getText();
         String emailFornecedor = txtEmail.getText();
 
+        if(emailFornecedor != null && emailFornecedor.isEmpty()){
+            emailFornecedor = null;
+        }
+
         FornecedorDTO fornecedorDTO = new FornecedorDTO(
                 null,
                 nomeFornecedor,
@@ -69,8 +87,17 @@ public class CadastroFornecedorController implements Initializable {
         );
         try {
             fornecedorValidator.validarFornecedor(fornecedorDTO);
-            fornecedorController.inserirFornecedor(fornecedorDTO);
-            Alertas.mostrarAlerta("Sucesso", "Fornecedor salvo com sucesso!", Alert.AlertType.INFORMATION);
+            if (fornecedorAtualizar == null) {
+                fornecedorController.inserirFornecedor(fornecedorDTO);
+                Alertas.mostrarAlerta("Sucesso", "Fornecedor salvo com sucesso!", Alert.AlertType.INFORMATION);
+            }else {
+                fornecedorAtualizar.setNome(nomeFornecedor);
+                fornecedorAtualizar.setTelefone(telefoneFornecedor);
+                fornecedorAtualizar.setEmail(emailFornecedor);
+                fornecedorController.atualizarFornecedor(fornecedorAtualizar);
+                Alertas.mostrarAlerta("Sucesso", "Fornecedor atualizado com sucesso!", Alert.AlertType.INFORMATION);
+            }
+            notificarOuvintes();
             Stage palco = (Stage) btnCancelar.getScene().getWindow();
             palco.close();
         } catch (ValidacaoException e) {
@@ -84,6 +111,8 @@ public class CadastroFornecedorController implements Initializable {
                 lblErroEmail.setText(e.getMessage());
                 lblErroEmail.setVisible(true);
             }
+        } catch (PersistenceException e){
+            Alertas.mostrarAlerta("Erro", "Nome, telefone ou email já cadastrados no sistema!", Alert.AlertType.INFORMATION);
         }
     }
 
@@ -91,6 +120,26 @@ public class CadastroFornecedorController implements Initializable {
     public void cancelarCadastro() {
         Stage palco = (Stage) btnCancelar.getScene().getWindow();
         palco.close();
+    }
+
+    public void atualizarFornecedor(FornecedorDTO fornecedorDTO) {
+        fornecedorAtualizar = fornecedorDTO;
+
+        titulo.setText("Atualizar Fornecedor");
+
+        txtNome.setText(fornecedorDTO.getNome());
+        txtTelefone.setText(fornecedorDTO.getTelefone());
+        txtEmail.setText(fornecedorDTO.getEmail());
+    }
+
+    public void adicionarObserver(FornecedorObserver observer) {
+        observers.add(observer);
+    }
+
+    private void notificarOuvintes(){
+        for (FornecedorObserver observer : observers) {
+            observer.atualizarFornecedores();
+        }
     }
 
     @Override

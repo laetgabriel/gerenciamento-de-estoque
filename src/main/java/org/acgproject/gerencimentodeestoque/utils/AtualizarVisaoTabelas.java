@@ -3,6 +3,7 @@ package org.acgproject.gerencimentodeestoque.utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
+import org.acgproject.gerencimentodeestoque.dto.FornecedorDTO;
 import org.acgproject.gerencimentodeestoque.dto.ProdutoDTO;
 
 import java.util.List;
@@ -28,6 +29,22 @@ public class AtualizarVisaoTabelas {
         return listaFiltrada;
     }
 
+    public static ObservableList<FornecedorDTO> tabelaFiltradaFornecedor(String filtroFornecedor,
+                                                                   List<FornecedorDTO> fornecedores,
+                                                                   TableView<FornecedorDTO> table) {
+
+        ObservableList<FornecedorDTO> listaFiltrada = FXCollections.observableArrayList();
+
+        for (FornecedorDTO fornecedorDTO : fornecedores) {
+            if (filtroFornecedor == null || filtroFornecedor.isEmpty() || filtroNomeFornecedor(fornecedorDTO, filtroFornecedor))
+                listaFiltrada.add(fornecedorDTO);
+
+
+        }
+        table.setItems(listaFiltrada);
+        return listaFiltrada;
+    }
+
     public static boolean filtroPorFornecedor(ProdutoDTO produtoDTO, String filtroFornecedor) {
         if (produtoDTO.getFornecedor().getNome().equalsIgnoreCase(filtroFornecedor) || filtroFornecedor.equalsIgnoreCase("Sem fornecedor")) {
             return true;
@@ -45,6 +62,13 @@ public class AtualizarVisaoTabelas {
 
     public static boolean filtroPorCategoria(ProdutoDTO produtoDTO, String filtroCategoria) {
         if(produtoDTO.getCategoria().getNome().equalsIgnoreCase(filtroCategoria) || filtroCategoria.equalsIgnoreCase("Sem categoria"))
+            return true;
+
+        return false;
+    }
+
+    public static boolean filtroNomeFornecedor(FornecedorDTO fornecedorDTO, String filtroNomeFornecedor) {
+        if(fornecedorDTO.getNome().toLowerCase().contains(filtroNomeFornecedor.toLowerCase()))
             return true;
 
         return false;

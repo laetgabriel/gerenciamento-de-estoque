@@ -30,29 +30,29 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="142.0" layoutY="113.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: green;" text="Atualizar" textFill="WHITE" AnchorPane.topAnchor="113.0">
+            <Button fx:id="btnAtualizar" alignment="CENTER" contentDisplay="CENTER" layoutX="142.0" layoutY="113.0" mnemonicParsing="false" onAction="#onBtnAtualizar" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: green;" text="Atualizar" textFill="WHITE" AnchorPane.topAnchor="113.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="275.0" layoutY="113.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: #FF4500;" text="Excluir" textFill="WHITE" AnchorPane.topAnchor="113.0">
+            <Button fx:id="btnExcluir" alignment="CENTER" contentDisplay="CENTER" layoutX="275.0" layoutY="113.0" mnemonicParsing="false" onAction="#onBtnExcluir" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: #FF4500;" text="Excluir" textFill="WHITE" AnchorPane.topAnchor="113.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="409.0" layoutY="113.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: green;" text="Gerar Relatório" textFill="WHITE" AnchorPane.leftAnchor="409.0" AnchorPane.topAnchor="113.0">
+            <Button fx:id="btnGerarRelatorio" alignment="CENTER" contentDisplay="CENTER" layoutX="409.0" layoutY="113.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: green;" text="Gerar Relatório" textFill="WHITE" AnchorPane.leftAnchor="409.0" AnchorPane.topAnchor="113.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <TextField layoutX="124.0" layoutY="159.0" prefHeight="26.0" prefWidth="172.0" promptText="Digite o nome do fornecedor" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="159.0" />
+            <TextField fx:id="txtNomeFornecedor" layoutX="124.0" layoutY="159.0" onAction="#onComboBoxFiltroChanged" prefHeight="26.0" prefWidth="172.0" promptText="Digite o nome do fornecedor" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="159.0" />
 
-                            <TableView layoutY="190.0" prefHeight="392.0" prefWidth="884.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="190.0">
+                            <TableView fx:id="tblFornecedor" layoutY="190.0" prefHeight="392.0" prefWidth="884.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="190.0">
                     <columns>
-                        <TableColumn editable="false" prefWidth="113.6000046133995" text="Id" />
-                        <TableColumn editable="false" prefWidth="147.2000503540039" text="Nome" />
-                        <TableColumn editable="false" prefWidth="101.0" text="Telefone" />
-                        <TableColumn editable="false" minWidth="8.0" prefWidth="134.0" text="Email" />
+                        <TableColumn fx:id="colId" editable="false" prefWidth="113.6000046133995" style="-fx-alignment: CENTER;" text="Id" />
+                        <TableColumn fx:id="colNome" editable="false" prefWidth="147.2000503540039" style="-fx-alignment: CENTER;" text="Nome" />
+                        <TableColumn fx:id="colTelefone" editable="false" prefWidth="101.0" style="-fx-alignment: CENTER;" text="Telefone" />
+                        <TableColumn fx:id="colEmail" editable="false" minWidth="8.0" prefWidth="169.0" style="-fx-alignment: CENTER;" text="Email" />
                     </columns>
                 </TableView>
             </children>

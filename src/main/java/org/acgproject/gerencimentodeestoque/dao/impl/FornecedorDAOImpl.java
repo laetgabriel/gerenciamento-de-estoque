@@ -1,13 +1,12 @@
 package org.acgproject.gerencimentodeestoque.dao.impl;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
 import org.acgproject.gerencimentodeestoque.dao.FornecedorDAO;
 import org.acgproject.gerencimentodeestoque.db.DB;
 import org.acgproject.gerencimentodeestoque.dto.FornecedorDTO;
-import org.acgproject.gerencimentodeestoque.mapper.CategoriaMapper;
 import org.acgproject.gerencimentodeestoque.mapper.FornecedorMapper;
-import org.acgproject.gerencimentodeestoque.model.entities.Categoria;
 import org.acgproject.gerencimentodeestoque.model.entities.Fornecedor;
 
 import java.util.List;
@@ -15,34 +14,39 @@ import java.util.List;
 public class FornecedorDAOImpl implements FornecedorDAO {
 
     @Override
-    public void inserirFornecedor(FornecedorDTO fornecedorDTO) {
+    public void inserirFornecedor(FornecedorDTO fornecedorDTO) throws PersistenceException {
         try(EntityManager em = DB.getConexao()){
             Fornecedor fornecedor = FornecedorMapper.toEntity(fornecedorDTO);
             em.getTransaction().begin();
             em.persist(fornecedor);
             em.getTransaction().commit();
+        } catch (PersistenceException e){
+            throw new PersistenceException(e);
         }
     }
 
     @Override
-    public void alterarFornecedor(FornecedorDTO fornecedorDTO) {
+    public void alterarFornecedor(FornecedorDTO fornecedorDTO) throws PersistenceException {
         try(EntityManager em = DB.getConexao()){
             Fornecedor fornecedor = FornecedorMapper.toEntity(fornecedorDTO);
             em.getTransaction().begin();
             em.merge(fornecedor);
             em.getTransaction().commit();
+        } catch (PersistenceException e){
+            throw new PersistenceException(e);
         }
     }
 
     @Override
-    public void excluirFornecedor(Integer id) {
+    public void excluirFornecedor(Integer id) throws PersistenceException {
         try(EntityManager em = DB.getConexao()){
             Fornecedor fornecedor = em.find(Fornecedor.class, id);
             em.getTransaction().begin();
             em.remove(fornecedor);
             em.getTransaction().commit();
+        }catch (PersistenceException e){
+            throw new PersistenceException(e);
         }
-
     }
 
     @Override

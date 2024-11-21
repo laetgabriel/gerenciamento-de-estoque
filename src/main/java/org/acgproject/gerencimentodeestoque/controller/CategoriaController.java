@@ -1,5 +1,6 @@
 package org.acgproject.gerencimentodeestoque.controller;
 
+import jakarta.persistence.PersistenceException;
 import org.acgproject.gerencimentodeestoque.dao.CategoriaDAO;
 import org.acgproject.gerencimentodeestoque.dao.impl.CategoriaDAOImpl;
 import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
@@ -15,7 +16,13 @@ public class CategoriaController {
 
     public void alterarCategoria(CategoriaDTO categoriaDTO){categoriaDAO.alterarCategoria(categoriaDTO);}
 
-    public void excluirCategoria(Integer id){categoriaDAO.excluirCategoria(id);}
+    public void excluirCategoria(Integer id) throws PersistenceException{
+        try {
+            categoriaDAO.excluirCategoria(id);
+        } catch (PersistenceException e) {
+            throw new PersistenceException(e);
+        }
+    }
 
     public CategoriaDTO buscarCategoria(Integer id){return categoriaDAO.buscarCategoria(id);}
 

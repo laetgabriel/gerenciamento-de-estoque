@@ -86,11 +86,11 @@
                 <!-- Tabela -->
                 <TableView layoutY="190.0" prefHeight="392.0" prefWidth="884.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="190.0">
                     <columns>
-                        <TableColumn editable="false" prefWidth="113.6000046133995" text="Id" />
-                        <TableColumn editable="false" prefWidth="147.2000503540039" text="Produto" />
-                        <TableColumn editable="false" prefWidth="101.0" text="Quantidade" />
-                        <TableColumn editable="false" minWidth="8.0" prefWidth="134.0" text="Tipo Movimentação" />
-                        <TableColumn editable="false" prefWidth="92.0" text="Data" />
+                        <TableColumn editable="false" prefWidth="113.6000046133995" style="-fx-alignment: CENTER;" text="Id" />
+                        <TableColumn editable="false" prefWidth="147.2000503540039" style="-fx-alignment: CENTER;" text="Produto" />
+                        <TableColumn editable="false" prefWidth="101.0" style="-fx-alignment: CENTER;" text="Quantidade" />
+                        <TableColumn editable="false" minWidth="8.0" prefWidth="134.0" style="-fx-alignment: CENTER;" text="Tipo Movimentação" />
+                        <TableColumn editable="false" prefWidth="92.0" style="-fx-alignment: CENTER;" text="Data" />
                     </columns>
                 </TableView>
             </children>
