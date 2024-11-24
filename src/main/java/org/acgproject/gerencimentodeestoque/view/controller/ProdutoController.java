@@ -1,5 +1,6 @@
 package org.acgproject.gerencimentodeestoque.view.controller;
 
+import jakarta.persistence.PersistenceException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,6 +21,7 @@ import org.acgproject.gerencimentodeestoque.view.observer.ProdutoObserver;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -92,34 +94,25 @@ public class ProdutoController implements Initializable, ProdutoObserver {
 
     public void onBtnExcluir() {
         produtoSelecionado = tblProdutos.getSelectionModel().getSelectedItem();
-        if (produtoSelecionado != null) {
-            Optional<ButtonType> escolha = Alertas.showConfirmation("Confirmação", "Tem certeza de que deseja excluir" +
-                    " o produto " + produtoSelecionado.getNome() + " ?");
-            if (escolha.get() == ButtonType.OK) {
-                produtoController.excluirProduto(produtoSelecionado.getId());
-                atualizarProdutos();
+        try {
+            if (produtoSelecionado != null) {
+                Optional<ButtonType> escolha = Alertas.showConfirmation("Confirmação", "Tem certeza de que deseja excluir" +
+                        " o produto " + produtoSelecionado.getNome() + " ?");
+                if (escolha.get() == ButtonType.OK) {
+                    produtoController.excluirProduto(produtoSelecionado.getId());
+                    atualizarProdutos();
+                }
+            } else {
+                Alertas.mostrarAlerta("Erro", "Selecione um produto para excluir!", Alert.AlertType.ERROR);
             }
-        } else {
-            Alertas.mostrarAlerta("Erro", "Selecione um produto para excluir!", Alert.AlertType.ERROR);
+        } catch (PersistenceException e) {
+            Alertas.mostrarAlerta("Erro ao excluir", "Produto relacionado com alguma  movimentação!",
+                    Alert.AlertType.ERROR);
         }
-    }
-
-    private void initializeNodes(){
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        colPreco.setCellValueFactory(new PropertyValueFactory<>("preco"));
-        colQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
-        colDataCadastro.setCellValueFactory(new PropertyValueFactory<>("dataCadastro"));
-        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-        colFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
-
     }
 
     @Override
     public void atualizarProdutos() {
-        if(produtoController == null){
-            Alertas.mostrarAlerta("ERRO", "Erro ao carregar tela de produtos!", Alert.AlertType.INFORMATION);
-        }
         List<ProdutoDTO> produtoDTOS = produtoController.listarProdutos();
         produtoDTOObservableList = FXCollections.observableArrayList(produtoDTOS);
         tblProdutos.setItems(produtoDTOObservableList);
@@ -144,6 +137,34 @@ public class ProdutoController implements Initializable, ProdutoObserver {
     private void tabelaFiltrada(String filtroFornecedor, String filtroNomeProduto, String filtroCategoria) {
         AtualizarVisaoTabelas.tabelaFiltradaProduto(filtroFornecedor, filtroNomeProduto, filtroCategoria,
                 produtoDTOObservableList, tblProdutos);
+    }
+
+    private void initializeNodes(){
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colPreco.setCellValueFactory(new PropertyValueFactory<>("preco"));
+        colQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        colDataCadastro.setCellValueFactory(new PropertyValueFactory<>("dataCadastro"));
+        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        colFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
+        formatterColData();
+    }
+
+    private void formatterColData(){
+        colDataCadastro.setCellFactory(column -> new TableCell<>() {
+            private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            @Override
+            protected void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (empty || date == null) {
+                    setText(null);
+                } else {
+                    setText(date.format(dateFormatter));
+                }
+            }
+        });
+
     }
 
     @Override

@@ -52,7 +52,6 @@ public class CategoriaController implements Initializable, CategoriaObserver {
     public void btnExcluirCategoria() {
         CategoriaDTO categoriaDTO = tblCategoria.getSelectionModel().getSelectedItem();
         try {
-
             if (categoriaDTO != null) {
                 Optional<ButtonType> escolha = Alertas.showConfirmation("Confirmação", "Tem certeza de que deseja excluir" +
                         " a categoria " + categoriaDTO.getNome() + " ?");

@@ -1,15 +1,13 @@
 package org.acgproject.gerencimentodeestoque.dao.impl;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceException;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.acgproject.gerencimentodeestoque.db.DB;
 import org.acgproject.gerencimentodeestoque.dao.ProdutoDAO;
-import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
 import org.acgproject.gerencimentodeestoque.dto.ProdutoDTO;
-import org.acgproject.gerencimentodeestoque.mapper.CategoriaMapper;
 import org.acgproject.gerencimentodeestoque.mapper.ProdutoMapper;
-import org.acgproject.gerencimentodeestoque.model.entities.Categoria;
 import org.acgproject.gerencimentodeestoque.model.entities.Produto;
 
 import java.util.List;
@@ -37,12 +35,14 @@ public class ProdutoDAOImpl implements ProdutoDAO{
     }
 
     @Override
-    public void excluirProduto(Integer id) {
+    public void excluirProduto(Integer id) throws PersistenceException {
         try(EntityManager em = DB.getConexao()) {
             Produto produto = em.find(Produto.class, id);
             em.getTransaction().begin();
             em.remove(produto);
             em.getTransaction().commit();
+        } catch (PersistenceException e) {
+            throw new PersistenceException(e);
         }
     }
 

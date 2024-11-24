@@ -67,4 +67,12 @@ public class MovimentacaoEstoque {
     public void setData(LocalDate data) {
         this.data = data;
     }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
 }

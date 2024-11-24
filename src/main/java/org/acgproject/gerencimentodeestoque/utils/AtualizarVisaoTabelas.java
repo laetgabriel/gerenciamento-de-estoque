@@ -4,8 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import org.acgproject.gerencimentodeestoque.dto.FornecedorDTO;
+import org.acgproject.gerencimentodeestoque.dto.MovimentacaoEstoqueDTO;
 import org.acgproject.gerencimentodeestoque.dto.ProdutoDTO;
-
+import java.time.LocalDate;
 import java.util.List;
 
 public class AtualizarVisaoTabelas {
@@ -45,6 +46,27 @@ public class AtualizarVisaoTabelas {
         return listaFiltrada;
     }
 
+    public static ObservableList<MovimentacaoEstoqueDTO> tabelaFiltradaMovimentacao(String filtroData, String filtroNomeProduto,
+                                                                               String filtroTipo,
+                                                                               List<MovimentacaoEstoqueDTO> movimentacoes,
+                                                                               TableView<MovimentacaoEstoqueDTO> table) {
+
+        ObservableList<MovimentacaoEstoqueDTO> listaFiltrada = FXCollections.observableArrayList();
+
+        for (MovimentacaoEstoqueDTO movimentacao : movimentacoes) {
+            if ((filtroData == null || filtroData.isEmpty() || filtroPorData(movimentacao, filtroData)) &&
+                    (filtroNomeProduto == null || filtroNomeProduto.isEmpty() || filtroNomeProduto(movimentacao.getProdutoDTO(),
+                            filtroNomeProduto)) &&
+                    (filtroTipo == null || filtroTipo.isEmpty() || filtroPorTipo(movimentacao, filtroTipo))) {
+                listaFiltrada.add(movimentacao);
+            }
+
+        }
+        table.setItems(listaFiltrada);
+        return listaFiltrada;
+    }
+
+
     public static boolean filtroPorFornecedor(ProdutoDTO produtoDTO, String filtroFornecedor) {
         if (produtoDTO.getFornecedor().getNome().equalsIgnoreCase(filtroFornecedor) || filtroFornecedor.equalsIgnoreCase("Sem fornecedor")) {
             return true;
@@ -73,4 +95,28 @@ public class AtualizarVisaoTabelas {
 
         return false;
     }
+
+    public static boolean filtroPorData(MovimentacaoEstoqueDTO movimentacaoDTO, String filtroData) {
+        LocalDate hoje = LocalDate.now();
+
+        switch (filtroData) {
+            case "Hoje":
+                return movimentacaoDTO.getData().isEqual(hoje);
+            case "Semanal":
+                return movimentacaoDTO.getData().isAfter(hoje.minusDays(7)) && movimentacaoDTO.getData().isBefore(hoje.plusDays(1));
+            case "Mês":
+                return movimentacaoDTO.getData().getMonth().equals(hoje.getMonth());
+            case "Todos":
+            default:
+                return true;
+        }
+    }
+
+    public static boolean filtroPorTipo(MovimentacaoEstoqueDTO movimentacaoEstoqueDTO, String filtroTipo) {
+        if(movimentacaoEstoqueDTO.getTipoMovimentacao().toString().equalsIgnoreCase(filtroTipo) || filtroTipo.equalsIgnoreCase(
+                "Todos"))
+            return true;
+        return false;
+    }
+
 }

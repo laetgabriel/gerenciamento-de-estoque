@@ -93,4 +93,9 @@ public class ProdutoDTO {
     public void setCategoria(CategoriaDTO categoria) {
         this.categoria = categoria;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }
