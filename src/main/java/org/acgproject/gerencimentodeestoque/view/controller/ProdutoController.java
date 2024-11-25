@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.acgproject.gerencimentodeestoque.controller.CategoriaController;
 import org.acgproject.gerencimentodeestoque.controller.FornecedorController;
 import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
@@ -69,6 +70,7 @@ public class ProdutoController implements Initializable, ProdutoObserver {
     private TableColumn<ProdutoDTO, FornecedorDTO> colFornecedor;
 
     private ObservableList<ProdutoDTO> produtoDTOObservableList;
+    private ObservableList<ProdutoDTO> produtosFiltro;
     private ProdutoDTO produtoSelecionado;
 
     private final org.acgproject.gerencimentodeestoque.controller.ProdutoController produtoController = new org.acgproject.gerencimentodeestoque.controller.ProdutoController();
@@ -111,10 +113,16 @@ public class ProdutoController implements Initializable, ProdutoObserver {
         }
     }
 
+    public void onBtnGerarRelatorio() {
+        Stage stage = (Stage) btnGerarRelatorio.getScene().getWindow();
+        produtoController.gerarRelatorio(stage, produtosFiltro);
+    }
+
     @Override
     public void atualizarProdutos() {
         List<ProdutoDTO> produtoDTOS = produtoController.listarProdutos();
         produtoDTOObservableList = FXCollections.observableArrayList(produtoDTOS);
+        produtosFiltro = FXCollections.observableArrayList(produtoDTOS);
         tblProdutos.setItems(produtoDTOObservableList);
         carregarValoresComboBox();
     }
@@ -136,7 +144,7 @@ public class ProdutoController implements Initializable, ProdutoObserver {
     }
 
     private void tabelaFiltrada(String filtroFornecedor, String filtroNomeProduto, String filtroCategoria) {
-        AtualizarVisaoTabelas.tabelaFiltradaProduto(filtroFornecedor, filtroNomeProduto, filtroCategoria,
+        produtosFiltro = AtualizarVisaoTabelas.tabelaFiltradaProduto(filtroFornecedor, filtroNomeProduto, filtroCategoria,
                 produtoDTOObservableList, tblProdutos);
     }
 

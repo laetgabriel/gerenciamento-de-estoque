@@ -7,13 +7,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.acgproject.gerencimentodeestoque.dto.FornecedorDTO;
 import org.acgproject.gerencimentodeestoque.utils.Alertas;
 import org.acgproject.gerencimentodeestoque.utils.AtualizarVisaoTabelas;
 import org.acgproject.gerencimentodeestoque.utils.Viewer;
 import org.acgproject.gerencimentodeestoque.view.observer.FornecedorObserver;
 
-import java.math.BigDecimal;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -49,6 +49,7 @@ public class FornecedorController implements Initializable, FornecedorObserver{
     private TableColumn<FornecedorDTO, String> colEmail;
 
     private ObservableList<FornecedorDTO> fornecedores;
+    private ObservableList<FornecedorDTO> fornecedoresFiltro;
     private FornecedorDTO fornecedorSelecionado;
     org.acgproject.gerencimentodeestoque.controller.FornecedorController fornecedorController = new org.acgproject.gerencimentodeestoque.controller.FornecedorController();
 
@@ -89,6 +90,11 @@ public class FornecedorController implements Initializable, FornecedorObserver{
         }
     }
 
+    public void onBtnGerarRelatorio(){
+        Stage stage = (Stage) btnGerarRelatorio.getScene().getWindow();
+        fornecedorController.gerarRelatorio(stage, fornecedoresFiltro);
+    }
+
     private void initializeNodes(){
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -99,8 +105,10 @@ public class FornecedorController implements Initializable, FornecedorObserver{
     public void atualizarFornecedores() {
         List<FornecedorDTO> produtoDTOS = fornecedorController.listarTodosOsFornecedores();
         fornecedores = FXCollections.observableArrayList(produtoDTOS);
+        fornecedoresFiltro = FXCollections.observableArrayList(produtoDTOS);
         tblFornecedor.setItems(fornecedores);
     }
+
 
     @FXML
     public void onComboBoxFiltroChanged() {
@@ -113,7 +121,7 @@ public class FornecedorController implements Initializable, FornecedorObserver{
     }
 
     private void tabelaFiltrada(String filtroFornecedor) {
-        AtualizarVisaoTabelas.tabelaFiltradaFornecedor(filtroFornecedor,
+        fornecedoresFiltro = AtualizarVisaoTabelas.tabelaFiltradaFornecedor(filtroFornecedor,
                 fornecedores, tblFornecedor);
     }
 

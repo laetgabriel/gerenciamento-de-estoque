@@ -4,6 +4,9 @@ module org.acgproject.gerencimentodeestoque {
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
     requires modelmapper;
+    requires kernel;
+    requires layout;
+    requires io;
 
     opens org.acgproject.gerencimentodeestoque.model.entities;
     opens org.acgproject.gerencimentodeestoque.view to javafx.fxml;

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.acgproject.gerencimentodeestoque.controller.ProdutoController;
 import org.acgproject.gerencimentodeestoque.dto.MovimentacaoEstoqueDTO;
 import org.acgproject.gerencimentodeestoque.dto.ProdutoDTO;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class MovimentacaoEstoqueController implements Initializable, MovimentacaoEstoqueObsever {
+public class MovimentacaoEstoqueController implements Initializable {
 
     @FXML
     private MenuItem movimentacaoEstoque;
@@ -45,6 +46,9 @@ public class MovimentacaoEstoqueController implements Initializable, Movimentaca
 
     @FXML
     private Button btnExcluir;
+
+    @FXML
+    private Button btnGerarRelatorio;
 
     @FXML
     private ComboBox<String> comboBoxFiltroData;
@@ -75,6 +79,7 @@ public class MovimentacaoEstoqueController implements Initializable, Movimentaca
             new org.acgproject.gerencimentodeestoque.controller.MovimentacaoEstoqueController();
     private final ProdutoController produtoController = new ProdutoController();
     private ObservableList<MovimentacaoEstoqueDTO> movimentacaoEstoqueDTOObservableList;
+    private ObservableList<MovimentacaoEstoqueDTO> movimentacaoFiltro;
 
     @FXML
     public void onMenuItemMovimentacaoEstoque(){
@@ -127,6 +132,11 @@ public class MovimentacaoEstoqueController implements Initializable, Movimentaca
         }
     }
 
+    public void onBtnGerarRelatorio(){
+        Stage stage = (Stage) btnGerarRelatorio.getScene().getWindow();
+        controller.gerarRelatorio(stage, movimentacaoFiltro);
+    }
+
     public void onBtnAtualizar(){
 
         movimentacaoSelecionada = tblMovimentacaoEstoque.getSelectionModel().getSelectedItem();
@@ -141,6 +151,7 @@ public class MovimentacaoEstoqueController implements Initializable, Movimentaca
     public void atualizarMovimentacaoEstoque() {
         List<MovimentacaoEstoqueDTO> movimentacoes = controller.listarMovimentacaoEstoque();
         movimentacaoEstoqueDTOObservableList = FXCollections.observableArrayList(movimentacoes);
+        movimentacaoFiltro  = FXCollections.observableArrayList(movimentacoes);
         tblMovimentacaoEstoque.setItems(movimentacaoEstoqueDTOObservableList);
     }
 
@@ -171,7 +182,7 @@ public class MovimentacaoEstoqueController implements Initializable, Movimentaca
     }
 
     private void tabelaFiltrada(String filtroData, String filtroNomeProduto, String filtroTipo) {
-        AtualizarVisaoTabelas.tabelaFiltradaMovimentacao(filtroData, filtroNomeProduto, filtroTipo,
+        movimentacaoFiltro = AtualizarVisaoTabelas.tabelaFiltradaMovimentacao(filtroData, filtroNomeProduto, filtroTipo,
                 movimentacaoEstoqueDTOObservableList, tblMovimentacaoEstoque);
     }
 
