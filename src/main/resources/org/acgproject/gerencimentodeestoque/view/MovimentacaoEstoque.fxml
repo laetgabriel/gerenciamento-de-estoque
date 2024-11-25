@@ -57,7 +57,7 @@
                     </font>
                 </Button>
 
-                <Button alignment="CENTER" contentDisplay="CENTER" layoutX="416.0" layoutY="113.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: green;" text="Gerar Relatório" textFill="WHITE" AnchorPane.leftAnchor="416.0" AnchorPane.topAnchor="113.0">
+                <Button fx:id="btnGerarRelatorio" alignment="CENTER" contentDisplay="CENTER" layoutX="416.0" layoutY="113.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="154.0" onAction="#onBtnGerarRelatorio" style="-fx-background-color: green;" text="Gerar Relatório" textFill="WHITE" AnchorPane.leftAnchor="416.0" AnchorPane.topAnchor="113.0">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>

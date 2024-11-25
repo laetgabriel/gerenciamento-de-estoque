@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.acgproject.gerencimentodeestoque.dto.MovimentacaoEstoqueDTO;
 import org.acgproject.gerencimentodeestoque.dto.ProdutoDTO;
 import org.acgproject.gerencimentodeestoque.model.enums.TipoMovimentacao;
@@ -44,6 +45,9 @@ public class MovimentacaoEstoqueController implements Initializable {
     private Button btnExcluir;
 
     @FXML
+    private Button btnGerarRelatorio;
+
+    @FXML
     private ComboBox<String> comboBoxFiltroData;
 
     @FXML
@@ -71,6 +75,7 @@ public class MovimentacaoEstoqueController implements Initializable {
     private final org.acgproject.gerencimentodeestoque.controller.MovimentacaoEstoqueController controller =
             new org.acgproject.gerencimentodeestoque.controller.MovimentacaoEstoqueController();
     private ObservableList<MovimentacaoEstoqueDTO> movimentacaoEstoqueDTOObservableList;
+    private ObservableList<MovimentacaoEstoqueDTO> movimentacaoFiltro;
 
     @FXML
     public void onMenuItemMovimentacaoEstoque(){
@@ -108,9 +113,15 @@ public class MovimentacaoEstoqueController implements Initializable {
         }
     }
 
+    public void onBtnGerarRelatorio(){
+        Stage stage = (Stage) btnGerarRelatorio.getScene().getWindow();
+        controller.gerarRelatorio(stage, movimentacaoFiltro);
+    }
+
     public void atualizarMovimentacaoEstoque() {
         List<MovimentacaoEstoqueDTO> movimentacoes = controller.listarMovimentacaoEstoque();
         movimentacaoEstoqueDTOObservableList = FXCollections.observableArrayList(movimentacoes);
+        movimentacaoFiltro  = FXCollections.observableArrayList(movimentacoes);
         tblMovimentacaoEstoque.setItems(movimentacaoEstoqueDTOObservableList);
     }
 
@@ -141,7 +152,7 @@ public class MovimentacaoEstoqueController implements Initializable {
     }
 
     private void tabelaFiltrada(String filtroData, String filtroNomeProduto, String filtroTipo) {
-        AtualizarVisaoTabelas.tabelaFiltradaMovimentacao(filtroData, filtroNomeProduto, filtroTipo,
+        movimentacaoFiltro = AtualizarVisaoTabelas.tabelaFiltradaMovimentacao(filtroData, filtroNomeProduto, filtroTipo,
                 movimentacaoEstoqueDTOObservableList, tblMovimentacaoEstoque);
     }
 
