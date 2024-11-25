@@ -129,7 +129,6 @@ public class CadastroProdutoController implements Initializable {
         }catch (ValidacaoCadastrosException e){
             setLblErros(e.getErrors());
         }catch (RuntimeException e){
-            e.printStackTrace();
             Alertas.mostrarAlerta("ERRO", "Produto já cadastrado!", Alert.AlertType.ERROR);
         }
     }

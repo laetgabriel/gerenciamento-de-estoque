@@ -224,6 +224,4 @@ public class MovimentacaoEstoqueController implements Initializable, Movimentaca
         });
 
     }
-
-
 }
