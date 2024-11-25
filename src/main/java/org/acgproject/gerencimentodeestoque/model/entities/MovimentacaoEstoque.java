@@ -28,14 +28,6 @@ public class MovimentacaoEstoque {
 
     public MovimentacaoEstoque(){}
 
-    @PrePersist
-    @PreUpdate
-    public void validarQuantidade() {
-        if (quantidade <= 0) {
-            throw new IllegalArgumentException("A quantidade deve ser maior que 0.");
-        }
-    }
-
     public void setId(Integer id) {
         this.id = id;
     }

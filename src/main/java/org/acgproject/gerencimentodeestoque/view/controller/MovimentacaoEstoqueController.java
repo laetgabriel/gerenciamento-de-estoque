@@ -6,12 +6,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.acgproject.gerencimentodeestoque.controller.ProdutoController;
 import org.acgproject.gerencimentodeestoque.dto.MovimentacaoEstoqueDTO;
 import org.acgproject.gerencimentodeestoque.dto.ProdutoDTO;
 import org.acgproject.gerencimentodeestoque.model.enums.TipoMovimentacao;
 import org.acgproject.gerencimentodeestoque.utils.Alertas;
 import org.acgproject.gerencimentodeestoque.utils.AtualizarVisaoTabelas;
 import org.acgproject.gerencimentodeestoque.utils.Viewer;
+import org.acgproject.gerencimentodeestoque.view.observer.MovimentacaoEstoqueObsever;
+
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class MovimentacaoEstoqueController implements Initializable {
+public class MovimentacaoEstoqueController implements Initializable, MovimentacaoEstoqueObsever {
 
     @FXML
     private MenuItem movimentacaoEstoque;
@@ -70,6 +73,7 @@ public class MovimentacaoEstoqueController implements Initializable {
 
     private final org.acgproject.gerencimentodeestoque.controller.MovimentacaoEstoqueController controller =
             new org.acgproject.gerencimentodeestoque.controller.MovimentacaoEstoqueController();
+    private final ProdutoController produtoController = new ProdutoController();
     private ObservableList<MovimentacaoEstoqueDTO> movimentacaoEstoqueDTOObservableList;
 
     @FXML
@@ -93,6 +97,11 @@ public class MovimentacaoEstoqueController implements Initializable {
     }
 
     @FXML
+    public void onBtnNovo(){
+        Viewer.loadViewCadastroMovimentacaoEstoque("/org/acgproject/gerencimentodeestoque/view/CadastroMovimentacaoEstoque.fxml", this, null);
+    }
+
+    @FXML
     public void onBtnExcluir(){
         movimentacaoSelecionada = tblMovimentacaoEstoque.getSelectionModel().getSelectedItem();
 
@@ -100,11 +109,32 @@ public class MovimentacaoEstoqueController implements Initializable {
             Optional<ButtonType> escolha = Alertas.showConfirmation("Confirmação", "Tem certeza de que deseja excluir" +
                     " a movimentação do produto " + movimentacaoSelecionada.getProdutoDTO().getNome() + " ?");
             if (escolha.get() == ButtonType.OK) {
+
+                ProdutoDTO prod = movimentacaoSelecionada.getProdutoDTO();
+
+                if(movimentacaoSelecionada.getTipoMovimentacao() == TipoMovimentacao.ENTRADA){
+                    movimentacaoSelecionada.getProdutoDTO().setQuantidade(prod.getQuantidade() - movimentacaoSelecionada.getQuantidade());
+                }else {
+                    movimentacaoSelecionada.getProdutoDTO().setQuantidade(prod.getQuantidade() + movimentacaoSelecionada.getQuantidade());
+                }
+
                 controller.excluirMovimentacaoEstoque(movimentacaoSelecionada.getId());
+                produtoController.alterarProduto(prod);
                 atualizarMovimentacaoEstoque();
             }
         } else {
             Alertas.mostrarAlerta("Erro", "Selecione uma movimentação para excluir!", Alert.AlertType.ERROR);
+        }
+    }
+
+    public void onBtnAtualizar(){
+
+        movimentacaoSelecionada = tblMovimentacaoEstoque.getSelectionModel().getSelectedItem();
+        if (movimentacaoSelecionada != null) {
+            Viewer.loadViewCadastroMovimentacaoEstoque("/org/acgproject/gerencimentodeestoque/view/CadastroMovimentacaoEstoque.fxml",
+                    this, movimentacaoSelecionada);
+        } else {
+            Alertas.mostrarAlerta("Erro", "Selecione uma movimentação para atualizar!", Alert.AlertType.ERROR);
         }
     }
 

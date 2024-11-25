@@ -11,6 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
 import org.acgproject.gerencimentodeestoque.dto.FornecedorDTO;
+import org.acgproject.gerencimentodeestoque.dto.MovimentacaoEstoqueDTO;
 import org.acgproject.gerencimentodeestoque.dto.ProdutoDTO;
 import org.acgproject.gerencimentodeestoque.view.App;
 import org.acgproject.gerencimentodeestoque.view.controller.*;
@@ -20,26 +21,6 @@ import java.io.IOException;
 import java.util.function.Consumer;
 
 public class Viewer {
-
-    public static void loadViewCadastro(String caminho) {
-        try {
-            Stage mainStage = App.getMainStage();
-            Stage newStage = new Stage();
-
-            FXMLLoader loader = new FXMLLoader(Viewer.class.getResource(caminho));
-            Parent novaTela = loader.load();
-            Scene cenaTela = new Scene(novaTela);
-            newStage.setResizable(false);
-            newStage.setTitle("Gerenciamento Estoque");
-            newStage.setScene(cenaTela);
-            newStage.initOwner(mainStage);
-            newStage.initModality(Modality.WINDOW_MODAL);
-            newStage.showAndWait();
-
-        } catch (IOException e) {
-            Alertas.mostrarAlerta("Erro", "Não foi possível carregar a tela.", Alert.AlertType.ERROR);
-        }
-    }
 
     public static <T> void loadView(String caminho, Consumer<T> configuracaoController) {
         try {
@@ -68,6 +49,7 @@ public class Viewer {
             newStage.showAndWait();
 
         } catch (IOException e) {
+            e.printStackTrace();
             Alertas.mostrarAlerta("Erro", "Não foi possível carregar a tela.", Alert.AlertType.ERROR);
         }
     }
@@ -102,6 +84,18 @@ public class Viewer {
                 cadastroFornecedorController.adicionarObserver(fornecedorController);
                 if (fornecedorDTO !=null) {
                     cadastroFornecedorController.atualizarFornecedor(fornecedorDTO);
+                }
+            }
+
+        });
+    }
+
+    public static void loadViewCadastroMovimentacaoEstoque(String caminho, MovimentacaoEstoqueController movimentacaoEstoqueController, MovimentacaoEstoqueDTO movimentacaoEstoqueDTO) {
+        Viewer.loadView(caminho, controller -> {
+            if (controller instanceof CadastroMovimentacaoEstoqueController cadastroMovimentacaoEstoqueController) {
+                cadastroMovimentacaoEstoqueController.adicionarObserver(movimentacaoEstoqueController);
+                if (movimentacaoEstoqueDTO != null) {
+                    cadastroMovimentacaoEstoqueController.atualizarMovimentacaoEstoque(movimentacaoEstoqueDTO);
                 }
             }
 
