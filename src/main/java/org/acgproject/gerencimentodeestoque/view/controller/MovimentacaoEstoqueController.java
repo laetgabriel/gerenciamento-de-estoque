@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class MovimentacaoEstoqueController implements Initializable {
+public class MovimentacaoEstoqueController implements Initializable, MovimentacaoEstoqueObsever {
 
     @FXML
     private MenuItem movimentacaoEstoque;

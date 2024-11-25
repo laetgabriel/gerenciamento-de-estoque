@@ -78,7 +78,11 @@ public class FornecedorController {
                         table.addCell(new Paragraph(fornecedor.getId().toString()));
                         table.addCell(new Paragraph(fornecedor.getNome()));
                         table.addCell(new Paragraph(fornecedor.getTelefone()));
-                        table.addCell(new Paragraph(fornecedor.getEmail()));
+                        if (fornecedor.getEmail() == null){
+                            table.addCell("");
+                        }else {
+                            table.addCell(new Paragraph(fornecedor.getEmail()));
+                        }
                     }
                 }
 
