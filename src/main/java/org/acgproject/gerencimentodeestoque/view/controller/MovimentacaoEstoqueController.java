@@ -79,6 +79,7 @@ public class MovimentacaoEstoqueController implements Initializable {
             new org.acgproject.gerencimentodeestoque.controller.MovimentacaoEstoqueController();
     private final ProdutoController produtoController = new ProdutoController();
     private ObservableList<MovimentacaoEstoqueDTO> movimentacaoEstoqueDTOObservableList;
+    private ObservableList<MovimentacaoEstoqueDTO> movimentacaoFiltro;
 
     @FXML
     public void onMenuItemMovimentacaoEstoque(){

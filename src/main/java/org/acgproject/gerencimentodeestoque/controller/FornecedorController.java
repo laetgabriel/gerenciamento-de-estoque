@@ -73,7 +73,6 @@ public class FornecedorController {
                         new String[]{"ID", "Nome", "Telefone", "Email"},
                         fontBody);
 
-                // Preencher a tabela com os dados dos fornecedores
                 for (FornecedorDTO fornecedor : fornecedores) {
                     if (fornecedor != null) {
                         table.addCell(new Paragraph(fornecedor.getId().toString()));

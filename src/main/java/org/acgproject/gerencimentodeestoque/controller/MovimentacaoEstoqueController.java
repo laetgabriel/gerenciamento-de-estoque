@@ -52,14 +52,12 @@ public class MovimentacaoEstoqueController {
 
                 RelatorioUtil.adicionarTitulo(document, "Relatório de Movimentação de Estoque", fontHeader);
 
-                // Criar a tabela com as colunas necessárias
                 Table table = RelatorioUtil.criarTabela(
                         new float[]{1, 3, 3, 3, 2},
                         new String[]{"ID", "Tipo", "Produto", "Quantidade", "Data"},
                         fontBody
                 );
 
-                // Preencher a tabela com os dados dos fornecedores
                 for (MovimentacaoEstoqueDTO movimentacao : movimentacoes) {
                     if (movimentacao != null) {
                         table.addCell(new Paragraph(movimentacao.getId().toString()));
