@@ -89,7 +89,7 @@ public class CadastroProdutoController implements Initializable {
                 MovimentacaoEstoqueDTO movimentacaoEstoqueDTO = new MovimentacaoEstoqueDTO();
                 movimentacaoEstoqueDTO.setTipoMovimentacao(TipoMovimentacao.ENTRADA);
                 movimentacaoEstoqueDTO.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
-                movimentacaoEstoqueDTO.setData(LocalDate.now());
+                movimentacaoEstoqueDTO.setData(produtoDTO.getDataCadastro());
 
                 produtoController.inserirProduto(produtoDTO);
 
@@ -116,7 +116,8 @@ public class CadastroProdutoController implements Initializable {
 
                 movimentacaoAtualizar.setProdutoDTO(produtoAtualizar);
                 movimentacaoAtualizar.setQuantidade(produtoAtualizar.getQuantidade());
-                movimentacaoAtualizar.setData(LocalDate.now());
+                movimentacaoAtualizar.setData(produtoAtualizar.getDataCadastro()
+                );
 
                 movimentacaoEstoqueController.alterarMovimentacaoEstoque(movimentacaoAtualizar);
 
