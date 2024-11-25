@@ -186,4 +186,5 @@ public class CadastroMovimentacaoEstoqueController implements Initializable {
         Restricoes.setTextFieldInteger(txtQuantidade);
         Restricoes.setDatePickerValidation(data);
     }
+
 }
