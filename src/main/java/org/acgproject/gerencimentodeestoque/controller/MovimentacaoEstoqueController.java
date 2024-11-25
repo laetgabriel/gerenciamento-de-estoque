@@ -15,11 +15,13 @@ import org.acgproject.gerencimentodeestoque.dao.impl.MovimentacaoEstoqueDAOImpl;
 import org.acgproject.gerencimentodeestoque.dto.MovimentacaoEstoqueDTO;
 import org.acgproject.gerencimentodeestoque.utils.FileChooserUtils;
 import org.acgproject.gerencimentodeestoque.utils.RelatorioUtil;
+import org.acgproject.gerencimentodeestoque.dto.ProdutoDTO;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.List;
 
 public class MovimentacaoEstoqueController {
@@ -30,6 +32,8 @@ public class MovimentacaoEstoqueController {
     public void alterarMovimentacaoEstoque(MovimentacaoEstoqueDTO movimentacaoEstoqueDTO) {movimentacaoEstoqueDAO.alterarMovimentacaoEstoque(movimentacaoEstoqueDTO);}
     public void excluirMovimentacaoEstoque(Integer id) throws PersistenceException {movimentacaoEstoqueDAO.excluirMovimentacaoEstoque(id);}
     public MovimentacaoEstoqueDTO buscarMovimentacaoEstoque(Integer id) {return movimentacaoEstoqueDAO.buscarMovimentacaoEstoque(id);}
+    public MovimentacaoEstoqueDTO buscarMovimentacaoEstoquePorProdutoCadastrado(ProdutoDTO produtoDTO, LocalDate data, Integer quantidade){
+        return movimentacaoEstoqueDAO.buscarMovimentacaoEstoquePorProdutoCadastrado(produtoDTO, data, quantidade);}
     public List<MovimentacaoEstoqueDTO> listarMovimentacaoEstoque(){return movimentacaoEstoqueDAO.listarMovimentacaoEstoque();}
     public void gerarRelatorio(Stage stage, ObservableList<MovimentacaoEstoqueDTO> movimentacoes) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");

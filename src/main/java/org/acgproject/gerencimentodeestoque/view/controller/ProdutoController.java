@@ -124,6 +124,7 @@ public class ProdutoController implements Initializable, ProdutoObserver {
         produtoDTOObservableList = FXCollections.observableArrayList(produtoDTOS);
         produtosFiltro = FXCollections.observableArrayList(produtoDTOS);
         tblProdutos.setItems(produtoDTOObservableList);
+        carregarValoresComboBox();
     }
 
     @FXML
@@ -175,10 +176,7 @@ public class ProdutoController implements Initializable, ProdutoObserver {
 
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        initializeNodes();
-        atualizarProdutos();
+    private void carregarValoresComboBox(){
         List<String> listaCategoria = produtoController.listarCategorias();
         categorias = FXCollections.observableArrayList(listaCategoria);
         categorias.add("Sem categoria");
@@ -189,6 +187,13 @@ public class ProdutoController implements Initializable, ProdutoObserver {
         fornecedores = FXCollections.observableArrayList(listaFornecedores);
         fornecedores.add("Sem fornecedor");
         comboBoxFornecedor.setItems(fornecedores);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        initializeNodes();
+        atualizarProdutos();
+        carregarValoresComboBox();
 
         txtNomeProduto.textProperty().addListener((observable, oldValue, newValue) -> {
             String filtroFornecedor = comboBoxFornecedor.getValue() != null
