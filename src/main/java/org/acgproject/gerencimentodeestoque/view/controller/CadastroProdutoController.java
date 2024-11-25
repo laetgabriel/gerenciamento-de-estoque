@@ -9,14 +9,19 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.acgproject.gerencimentodeestoque.controller.CategoriaController;
 import org.acgproject.gerencimentodeestoque.controller.FornecedorController;
+import org.acgproject.gerencimentodeestoque.controller.MovimentacaoEstoqueController;
 import org.acgproject.gerencimentodeestoque.controller.ProdutoController;
 import org.acgproject.gerencimentodeestoque.dao.ProdutoDAO;
 import org.acgproject.gerencimentodeestoque.dao.impl.ProdutoDAOImpl;
 import org.acgproject.gerencimentodeestoque.dto.CategoriaDTO;
 import org.acgproject.gerencimentodeestoque.dto.FornecedorDTO;
+import org.acgproject.gerencimentodeestoque.dto.MovimentacaoEstoqueDTO;
 import org.acgproject.gerencimentodeestoque.dto.ProdutoDTO;
+import org.acgproject.gerencimentodeestoque.mapper.ProdutoMapper;
 import org.acgproject.gerencimentodeestoque.model.entities.Categoria;
 import org.acgproject.gerencimentodeestoque.model.entities.Fornecedor;
+import org.acgproject.gerencimentodeestoque.model.entities.Produto;
+import org.acgproject.gerencimentodeestoque.model.enums.TipoMovimentacao;
 import org.acgproject.gerencimentodeestoque.utils.Alertas;
 import org.acgproject.gerencimentodeestoque.utils.Restricoes;
 import org.acgproject.gerencimentodeestoque.view.controller.exceptions.ValidacaoCadastrosException;
@@ -32,6 +37,7 @@ import java.util.*;
 public class CadastroProdutoController implements Initializable {
 
     private ProdutoDTO produtoAtualizar = null;
+    private MovimentacaoEstoqueDTO movimentacaoAtualizar = null;
     @FXML
     private Label titulo;
 
@@ -67,6 +73,7 @@ public class CadastroProdutoController implements Initializable {
     private final org.acgproject.gerencimentodeestoque.controller.ProdutoController produtoController = new ProdutoController();
     private final CategoriaController categoriaController = new CategoriaController();
     private final FornecedorController fornecedorController = new FornecedorController();
+    private final MovimentacaoEstoqueController movimentacaoEstoqueController = new MovimentacaoEstoqueController();
     private ObservableList<CategoriaDTO> categorias;
     private ObservableList<FornecedorDTO> fornecedores;
 
@@ -77,10 +84,21 @@ public class CadastroProdutoController implements Initializable {
         limpaLblErros();
         try{
             ProdutoDTO produtoDTO = getDados();
+
             if (produtoAtualizar == null) {
+                MovimentacaoEstoqueDTO movimentacaoEstoqueDTO = new MovimentacaoEstoqueDTO();
+                movimentacaoEstoqueDTO.setTipoMovimentacao(TipoMovimentacao.ENTRADA);
+                movimentacaoEstoqueDTO.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
+                movimentacaoEstoqueDTO.setData(LocalDate.now());
+
                 produtoController.inserirProduto(produtoDTO);
+
+                ProdutoDTO produtoSalvo = produtoController.buscarProdutoPorNome(produtoDTO.getNome());
+                movimentacaoEstoqueDTO.setProdutoDTO(produtoSalvo);
+                movimentacaoEstoqueController.inserirMovimentacaoEstoque(movimentacaoEstoqueDTO);
                 Alertas.mostrarAlerta("Sucesso", "Produto salvo com sucesso!", Alert.AlertType.INFORMATION);
             }else {
+
 
                 CategoriaDTO categoriaDTO =
                         categoriaController.buscarCategoriaPorNome(comboBoxCategoria.getSelectionModel().getSelectedItem().toString());
@@ -95,6 +113,13 @@ public class CadastroProdutoController implements Initializable {
                 produtoAtualizar.setFornecedor(fornecedorDTO);
                 produtoAtualizar.setCategoria(categoriaDTO);
                 produtoController.alterarProduto(produtoAtualizar);
+
+                movimentacaoAtualizar.setProdutoDTO(produtoAtualizar);
+                movimentacaoAtualizar.setQuantidade(produtoAtualizar.getQuantidade());
+                movimentacaoAtualizar.setData(LocalDate.now());
+
+                movimentacaoEstoqueController.alterarMovimentacaoEstoque(movimentacaoAtualizar);
+
                 Alertas.mostrarAlerta("Sucesso", "Produto modificado com sucesso!", Alert.AlertType.INFORMATION);
             }
             notificarOuvintes();
@@ -126,6 +151,9 @@ public class CadastroProdutoController implements Initializable {
         comboBoxFornecedor.setValue(produtoDTO.getFornecedor());
         data.setValue(produtoDTO.getDataCadastro());
 
+         movimentacaoAtualizar =
+                movimentacaoEstoqueController.buscarMovimentacaoEstoquePorProdutoCadastrado(produtoDTO,
+                        produtoDTO.getDataCadastro(), produtoDTO.getQuantidade());
     }
 
     private ProdutoDTO getDados() throws ValidacaoCadastrosException {
